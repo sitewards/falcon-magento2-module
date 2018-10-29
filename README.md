@@ -2,11 +2,11 @@
 
 Api adaptor for Deity Falcon
 
-# Disclaimer
+## Disclaimer
 
 This repository contains only stable releases of Deity Magento module suitable for composer installation.
 If you are interested in beta or develop versions of the module, or want to submit an issue or pull request 
-visit https://github.com/deity-io/falcon-magento2-development .
+visit `https://github.com/deity-io/falcon-magento2-development` .
 Please do not open issues or PR's in this repository.
 
 ## Getting Started
