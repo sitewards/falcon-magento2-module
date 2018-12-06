@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Deity\UrlRewriteApi\Api\Data\UrlRewriteInterface" type="Deity\UrlRewrite\Model\Data\UrlRewrite" />
+    <preference for="Deity\UrlRewriteApi\Api\GetUrlRewriteInterface" type="Deity\UrlRewrite\Model\GetUrlRewrite" />
+    <type name="Deity\UrlRewrite\Model\GetUrlRewrite">
+        <arguments>
+            <argument name="commandsPerEntityType" xsi:type="array">
+                <item name="product" xsi:type="object">Deity\UrlRewrite\Model\UrlRewrite\Command\ConvertProductIdToSku</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

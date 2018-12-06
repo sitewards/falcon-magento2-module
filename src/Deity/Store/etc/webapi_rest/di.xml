@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Store\Api\StoreRepositoryInterface">
+        <plugin name="deity_magento_store_extension_attributes" type="Deity\Store\Plugin\Model\StoreRepository" sortOrder="10" />
+    </type>
+    <type name="Magento\Store\Api\StoreConfigManagerInterface">
+        <plugin name="deity_magento_store_config_extending" type="Deity\Store\Plugin\Service\StoreConfigManager" />
+    </type>
+</config>

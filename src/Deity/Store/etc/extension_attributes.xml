@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Store\Api\Data\StoreConfigInterface">
+        <attribute code="optional_post_codes" type="mixed" />
+        <attribute code="min_password_length" type="int" />
+        <attribute code="min_password_char_class" type="int" />
+        <attribute code="api_version" type="string" />
+    </extension_attributes>
+    <extension_attributes for="Magento\Store\Api\Data\StoreInterface">
+        <attribute code="is_active" type="int" />
+    </extension_attributes>
+</config>

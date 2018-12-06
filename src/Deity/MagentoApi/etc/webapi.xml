@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/info" method="GET">
+        <service class="Deity\MagentoApi\Api\InfoInterface" method="getInfo"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/menu" method="GET">
+        <service class="Deity\MagentoApi\Api\MenuRepositoryInterface" method="getTree"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/categories" method="GET">
+        <service class="Deity\MagentoApi\Api\CategoryManagementInterface" method="getTree" />
+        <resources>
+            <resource ref="Magento_Catalog::categories" />
+        </resources>
+    </route>
+    <route url="/V1/attributes/filters" method="GET">
+        <service class="Deity\MagentoApi\Api\Catalog\AttributeManagementInterface" method="getCategoryFilters"/>
+        <resources>
+            <resource ref="Magento_Catalog::catalog" />
+        </resources>
+    </route>
+    <route url="/V1/products" method="GET">
+        <service class="Deity\MagentoApi\Api\ProductRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Magento_Catalog::products" />
+        </resources>
+    </route>
+    <route url="/V1/contact" method="POST">
+        <service class="Deity\MagentoApi\Api\ContactFormInterface" method="send"/>
+        <resources>
+            <resource ref="Magento_Contact::contact" />
+        </resources>
+    </route>
+    <route url="/V1/order-info/:quoteId" method="GET">
+        <service class="Deity\MagentoApi\Api\QuoteMaskInterface" method="getItem" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/guest-carts/:cartId/paypal-fetch-token" method="GET">
+        <service class="Deity\MagentoApi\Api\Payment\GuestPaypalInterface" method="getToken"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-carts/:cartId/payment-information" method="POST">
+        <service class="\Deity\MagentoApi\Api\Checkout\GuestPaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-carts/:cartId/deity-order" method="PUT">
+        <service class="\Deity\MagentoApi\Api\Checkout\GuestCartManagementInterface" method="placeOrder"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/carts/mine/paypal-fetch-token" method="GET">
+        <service class="Deity\MagentoApi\Api\Payment\PaypalInterface" method="getToken"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/carts/mine/payment-information" method="POST">
+        <service class="\Deity\MagentoApi\Api\Checkout\PaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/carts/mine/deity-order" method="PUT">
+        <service class="\Deity\MagentoApi\Api\Checkout\CartManagementInterface" method="placeOrder"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/guest-orders/:orderId/order-info" method="GET">
+        <service class="\Deity\MagentoApi\Api\Sales\GuestOrderManagementInterface" method="getItem"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/orders/:orderId/order-info" method="GET">
+        <service class="\Deity\MagentoApi\Api\Sales\OrderManagementInterface" method="getItem"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+
+    <route url="/V1/orders/get-order-from-paypal-hash/:paypalHash" method="GET">
+        <service class="\Deity\MagentoApi\Api\Sales\OrderManagementInterface" method="getOrderIdFromHash"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/orders/mine" method="GET">
+        <service class="\Deity\MagentoApi\Api\Sales\OrderManagementInterface" method="getCustomerOrders"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+
+    <route url="/V1/customers/password/reset" method="PUT">
+        <service class="Magento\Customer\Api\AccountManagementInterface" method="resetPassword"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/customers/me/address/" method="GET">
+        <service class="Deity\MagentoApi\Api\Customer\AddressRepositoryInterface" method="getCustomerAddressList"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me/address/:addressId" method="GET">
+        <service class="Deity\MagentoApi\Api\Customer\AddressRepositoryInterface" method="getCustomerAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me/address" method="POST">
+        <service class="Deity\MagentoApi\Api\Customer\AddressRepositoryInterface" method="createCustomerAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me/address" method="PUT">
+        <service class="Deity\MagentoApi\Api\Customer\AddressRepositoryInterface" method="updateCustomerAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me/address/:addressId" method="DELETE">
+        <service class="Deity\MagentoApi\Api\Customer\AddressRepositoryInterface" method="deleteCustomerAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/integration/admin/token" method="POST">
+        <service class="Deity\MagentoApi\Api\Integration\AdminTokenServiceInterface" method="createAdminAccessToken"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/integration/customer/token" method="POST">
+        <service class="Deity\MagentoApi\Api\Integration\CustomerTokenServiceInterface" method="createCustomerAccessToken"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/customers/me/newsletter/subscribe" method="PUT">
+        <service class="Deity\MagentoApi\Api\Customer\NewsletterManagerInterface" method="subscribeCustomer"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/customers/me/newsletter/unsubscribe" method="PUT">
+        <service class="Deity\MagentoApi\Api\Customer\NewsletterManagerInterface" method="unsubscribeCustomer"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+</routes>

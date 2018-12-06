@@ -1,0 +1,22 @@
+{
+    "name": "deity/falcon-magento-url-rewrite",
+    "description": "Deity Magento Url Rewrite API implementation",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "require": {
+        "magento/framework": "*",
+        "magento/module-url-rewrite" : "*",
+        "deity/falcon-magento-url-rewrite-api" : "*"
+    },
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Deity\\UrlRewrite\\": ""
+        }
+    }
+}
