@@ -12,24 +12,6 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
-    <route url="/V1/categories" method="GET">
-        <service class="Deity\MagentoApi\Api\CategoryManagementInterface" method="getTree" />
-        <resources>
-            <resource ref="Magento_Catalog::categories" />
-        </resources>
-    </route>
-    <route url="/V1/attributes/filters" method="GET">
-        <service class="Deity\MagentoApi\Api\Catalog\AttributeManagementInterface" method="getCategoryFilters"/>
-        <resources>
-            <resource ref="Magento_Catalog::catalog" />
-        </resources>
-    </route>
-    <route url="/V1/products" method="GET">
-        <service class="Deity\MagentoApi\Api\ProductRepositoryInterface" method="getList"/>
-        <resources>
-            <resource ref="Magento_Catalog::products" />
-        </resources>
-    </route>
     <route url="/V1/contact" method="POST">
         <service class="Deity\MagentoApi\Api\ContactFormInterface" method="send"/>
         <resources>

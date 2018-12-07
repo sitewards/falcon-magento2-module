@@ -1,0 +1,21 @@
+{
+    "name": "deity/falcon-magento-theme",
+    "description": "Deity Magento Theme modifications",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "require": {
+        "magento/framework": "*",
+        "magento/theme-frontend-blank": "*"
+    },
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Deity\\Theme\\": ""
+        }
+    }
+}

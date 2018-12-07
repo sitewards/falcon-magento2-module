@@ -8,10 +8,6 @@
     <preference for="Deity\MagentoApi\Api\Checkout\PaymentInformationManagementInterface" type="\Magento\Checkout\Model\PaymentInformationManagement" />
     <preference for="Deity\MagentoApi\Api\Customer\NewsletterManagerInterface" type="\Deity\MagentoApi\Model\Customer\NewsletterManager" />
 
-    <!-- OVERRIDES -->
-    <preference for="Magento\Catalog\Model\ResourceModel\Category" type="\Deity\MagentoApi\Model\ResourceModel\Category" />
-    <preference for="Magento\Catalog\Model\ResourceModel\Category\Collection" type="\Deity\MagentoApi\Model\ResourceModel\Category\Collection" />
-
     <!-- PLUGINS -->
     <type name="Magento\Bundle\Helper\Catalog\Product\Configuration">
         <plugin name="deityMagentoApiBundleProductConfigurationHelper" type="\Deity\MagentoApi\Plugin\Bundle\Helper\Product\Configuration" />
@@ -27,10 +23,6 @@
 
     <type name="Magento\Catalog\Helper\Product\Configuration">
         <plugin name="deityMagentoApiProductConfigurationHelper" type="\Deity\MagentoApi\Plugin\Catalog\Helper\Product\Configuration" />
-    </type>
-
-    <type name="Magento\Catalog\Model\Category">
-        <plugin name="deityMagentoApiCategoryPlugin" type="\Deity\MagentoApi\Plugin\Catalog\Model\Category" />
     </type>
 
     <type name="Magento\Catalog\Model\Product">
