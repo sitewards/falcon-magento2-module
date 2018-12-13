@@ -7,8 +7,25 @@
         "OSL-3.0"
     ],
     "autoload": {
+        "files" : [
+            "src/Deity/Base/registration.php",
+            "src/Deity/Catalog/registration.php",
+            "src/Deity/CatalogApi/registration.php",
+            "src/Deity/MagentoApi/registration.php",
+            "src/Deity/Store/registration.php",
+            "src/Deity/Theme/registration.php",
+            "src/Deity/UrlRewrite/registration.php",
+            "src/Deity/UrlRewriteApi/registration.php"
+        ],
         "psr-4": {
-            "Deity\\": "src/"
+            "Deity\\Base\\": "src/Deity/Base",
+            "Deity\\Catalog\\": "src/Deity/Catalog",
+            "Deity\\CatalogApi\\": "src/Deity/CatalogApi",
+            "Deity\\MagentoApi\\": "src/Deity/MagentoApi",
+            "Deity\\Store\\": "src/Deity/Store",
+            "Deity\\Theme\\": "src/Deity/Theme",
+            "Deity\\UrlRewrite\\": "src/Deity/UrlRewrite",
+            "Deity\\UrlRewriteApi\\": "src/Deity/UrlRewriteApi"
         }
     },
     "require": {
