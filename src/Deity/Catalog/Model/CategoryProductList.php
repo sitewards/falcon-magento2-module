@@ -13,6 +13,7 @@ use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\CatalogInventory\Helper\Stock;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Registry;
 
 /**
  * Class CategoryProductList
@@ -54,12 +55,18 @@ class CategoryProductList implements CategoryProductListInterface
     private $collectionProcessor;
 
     /**
+     * @var Registry
+     */
+    private $registry;
+
+    /**
      * CategoryProductList constructor.
      * @param ProductSearchResultsInterfaceFactory $productSearchResultFactory
      * @param ProductConvertInterface $convert
      * @param Stock $stockHelper
      * @param Resolver $layerResolver
      * @param ProductFilterProviderInterface $productFilterProvider
+     * @param Registry $registry
      * @param CollectionProcessorInterface $collectionProcessor
      */
     public function __construct(
@@ -68,8 +75,10 @@ class CategoryProductList implements CategoryProductListInterface
         Stock $stockHelper,
         Resolver $layerResolver,
         ProductFilterProviderInterface $productFilterProvider,
+        Registry $registry,
         CollectionProcessorInterface $collectionProcessor
     ) {
+        $this->registry = $registry;
         $this->stockHelper = $stockHelper;
         $this->collectionProcessor = $collectionProcessor;
         $this->filterProvider = $productFilterProvider;
@@ -88,8 +97,10 @@ class CategoryProductList implements CategoryProductListInterface
         int $categoryId,
         \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null
     ): ProductSearchResultsInterface {
-
+        
         $this->catalogLayer->setCurrentCategory($categoryId);
+
+        $this->registry->register('current_category', $this->catalogLayer->getCurrentCategory());
 
         if ($searchCriteria !== null) {
             $this->collectionProcessor->process($searchCriteria, $this->getProductCollection());

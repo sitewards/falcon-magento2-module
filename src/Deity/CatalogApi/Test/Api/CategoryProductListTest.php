@@ -40,6 +40,29 @@ class CategoryProductListTest extends WebapiAbstract
     }
 
     /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_children.php
+     */
+    public function testGetListUrlPath()
+    {
+        $childCategoryId = 4;
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $childCategoryId, self::RESOURCE_PATH),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+        $response = $this->_webApiCall($serviceInfo);
+
+        $productData = array_pop($response['items']);
+        $this->assertEquals(
+            'first/child/simple-two.html',
+            $productData['url_path'],
+            'Product should have url within category context'
+        );
+    }
+
+    /**
      * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_filters.php
      */
     public function testGetListNoParametersWithFilters()
