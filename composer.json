@@ -9,6 +9,8 @@
     "autoload": {
         "files" : [
             "src/Deity/Base/registration.php",
+            "src/Deity/Breadcrumbs/registration.php",
+            "src/Deity/BreadcrumbsApi/registration.php",
             "src/Deity/Catalog/registration.php",
             "src/Deity/CatalogApi/registration.php",
             "src/Deity/MagentoApi/registration.php",
@@ -19,6 +21,8 @@
         ],
         "psr-4": {
             "Deity\\Base\\": "src/Deity/Base",
+            "Deity\\Breadcrumbs\\": "src/Deity/Breadcrumbs",
+            "Deity\\BreadcrumbsApi\\": "src/Deity/BreadcrumbsApi",
             "Deity\\Catalog\\": "src/Deity/Catalog",
             "Deity\\CatalogApi\\": "src/Deity/CatalogApi",
             "Deity\\MagentoApi\\": "src/Deity/MagentoApi",
