@@ -153,20 +153,6 @@
         </data>
     </route>
 
-    <route url="/V1/integration/admin/token" method="POST">
-        <service class="Deity\MagentoApi\Api\Integration\AdminTokenServiceInterface" method="createAdminAccessToken"/>
-        <resources>
-            <resource ref="anonymous"/>
-        </resources>
-    </route>
-
-    <route url="/V1/integration/customer/token" method="POST">
-        <service class="Deity\MagentoApi\Api\Integration\CustomerTokenServiceInterface" method="createCustomerAccessToken"/>
-        <resources>
-            <resource ref="anonymous"/>
-        </resources>
-    </route>
-
     <route url="/V1/customers/me/newsletter/subscribe" method="PUT">
         <service class="Deity\MagentoApi\Api\Customer\NewsletterManagerInterface" method="subscribeCustomer"/>
         <resources>
