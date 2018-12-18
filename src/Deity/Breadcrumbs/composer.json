@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "require": {
         "magento/framework": "*",
-        "magento/module-urlrewrite" : "*",
+        "magento/module-url-rewrite" : "*",
         "magento/module-magento-breadcrumbs-api" : "*",
         "magento/module-catalog" : "*",
         "php": "^7.0"
