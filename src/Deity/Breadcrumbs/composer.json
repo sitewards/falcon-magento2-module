@@ -5,9 +5,9 @@
     "version": "1.0.0",
     "require": {
         "magento/framework": "*",
-        "magento/module-url-rewrite" : "*",
-        "magento/module-magento-breadcrumbs-api" : "*",
         "magento/module-catalog" : "*",
+        "magento/module-url-rewrite" : "*",
+        "deity/falcon-magento-breadcrumbs-api" : "*",
         "php": "^7.0"
     },
     "license": [
