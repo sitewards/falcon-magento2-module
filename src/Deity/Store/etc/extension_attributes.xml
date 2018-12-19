@@ -5,6 +5,8 @@
         <attribute code="min_password_length" type="int" />
         <attribute code="min_password_char_class" type="int" />
         <attribute code="api_version" type="string" />
+        <attribute code="customer_token_lifetime" type="int" />
+        <attribute code="admin_token_lifetime" type="int" />
     </extension_attributes>
     <extension_attributes for="Magento\Store\Api\Data\StoreInterface">
         <attribute code="is_active" type="int" />
