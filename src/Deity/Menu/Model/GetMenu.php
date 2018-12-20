@@ -59,7 +59,6 @@ class GetMenu implements GetMenuInterface
         $this->collectionFactory = $collectionFactory;
     }
 
-
     /**
      * @return \Deity\MenuApi\Api\Data\MenuInterface[]
      * @throws LocalizedException

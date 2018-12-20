@@ -55,7 +55,11 @@ class GetMenuTest extends WebapiAbstract
         $thirdLevelCategory = array_pop($secondLevelCategory['children']);
         $this->assertEquals(5, $thirdLevelCategory['id'], "Category id should match");
         $this->assertEquals("Level 3", $thirdLevelCategory['name'], "Category name should match");
-        $this->assertEquals("level-one/level-two/level-three.html", $thirdLevelCategory['url_path'], "Category path should match");
+        $this->assertEquals(
+            "level-one/level-two/level-three.html",
+            $thirdLevelCategory['url_path'],
+            "Category path should match"
+        );
     }
 
     /**
