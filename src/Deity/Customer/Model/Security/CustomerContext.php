@@ -1,9 +1,15 @@
 <?php
-namespace Deity\MagentoApi\Model\Security;
+declare(strict_types=1);
+
+namespace Deity\Customer\Model\Security;
 
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Framework\Exception\AuthorizationException;
 
+/**
+ * Class CustomerContext
+ * @package Deity\Customer\Model\Security
+ */
 class CustomerContext
 {
     /** @var UserContextInterface */
@@ -22,7 +28,7 @@ class CustomerContext
      *
      * @return int
      */
-    public function getCurrentCustomerId()
+    public function getCurrentCustomerId(): int
     {
         return (int)$this->userContext->getUserId();
     }
@@ -34,7 +40,7 @@ class CustomerContext
      * @return bool
      * @throws AuthorizationException
      */
-    public function checkCustomerContext($customerId = null)
+    public function checkCustomerContext($customerId = null): bool
     {
         if ($this->userContext->getUserType() !== UserContextInterface::USER_TYPE_CUSTOMER) {
             throw new AuthorizationException(__('This method is available only for customer tokens'));

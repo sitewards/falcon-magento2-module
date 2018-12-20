@@ -2,7 +2,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <!-- INTERFACE PREFERENCES FOR DI -->
-    <preference for="Deity\MagentoApi\Api\Customer\AddressRepositoryInterface" type="Deity\MagentoApi\Model\Customer\AddressRepository" />
     <preference for="Deity\MagentoApi\Api\ContactFormInterface" type="Deity\MagentoApi\Model\ContactForm" />
     <preference for="Deity\MagentoApi\Api\Data\GalleryMediaEntrySizeInterface" type="Deity\MagentoApi\Model\GalleryMediaEntrySize" />
     <preference for="Deity\MagentoApi\Api\Data\InfoDataInterface" type="Deity\MagentoApi\Model\InfoData" />

@@ -1,12 +1,13 @@
 <?php
-namespace Deity\MagentoApi\Model\Customer;
+declare(strict_types=1);
 
+namespace Deity\Customer\Model;
 
-use Deity\MagentoApi\Api\Customer\AddressRepositoryInterface;
-use Deity\MagentoApi\Model\Security\CustomerContext;
+use Deity\Customer\Model\Security\CustomerContext;
+use Deity\CustomerApi\Api\AddressRepositoryInterface;
 use Magento\Customer\Api\AddressRepositoryInterface as CustomerAddressRepositoryInterface;
-use Magento\Customer\Api\Data\AddressSearchResultsInterface;
 use Magento\Customer\Api\Data\AddressInterface;
+use Magento\Customer\Api\Data\AddressSearchResultsInterface;
 use Magento\Customer\Model\Address;
 use Magento\Customer\Model\AddressRegistry;
 use Magento\Framework\Api\SearchCriteriaBuilder;
@@ -16,6 +17,10 @@ use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
+/**
+ * Class AddressRepository
+ * @package Deity\Customer\Model
+ */
 class AddressRepository implements AddressRepositoryInterface
 {
 
@@ -72,7 +77,7 @@ class AddressRepository implements AddressRepositoryInterface
         /** @var AddressSearchResultsInterface $searchResult */
         $searchResult = $this->addressRepository->getList($searchCriteriaBuilder->create());
 
-        foreach($searchResult->getItems() as $item) {
+        foreach ($searchResult->getItems() as $item) {
             $this->ensureDefaultAddressFlags($item);
         }
         return $searchResult;

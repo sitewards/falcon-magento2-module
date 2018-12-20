@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- INTERFACE PREFERENCES FOR DI -->
+    <preference for="Deity\CustomerApi\Api\NewsletterManagerInterface" type="Deity\Customer\Model\NewsletterManager" />
+
+    <!-- PLUGINS -->
+    <type name="Magento\Customer\Api\AccountManagementInterface">
+        <plugin name="deityMagentoApiAccountManagement" type="Deity\Customer\Plugin\Customer\Api\AccountManagement" />
+    </type>
+
+    <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="deityMagentoCustomerRepositoryPlugin" type="Deity\Customer\Plugin\Customer\Api\CustomerRepository" />
+    </type>
+
+</config>

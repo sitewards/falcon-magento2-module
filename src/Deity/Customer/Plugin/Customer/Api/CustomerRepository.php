@@ -1,5 +1,7 @@
 <?php
-namespace Deity\MagentoApi\Plugin\Customer\Api;
+declare(strict_types=1);
+
+namespace Deity\Customer\Plugin\Customer\Api;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
@@ -7,6 +9,10 @@ use Magento\Customer\Api\Data\CustomerExtensionInterface;
 use Magento\Framework\Api\ExtensionAttributesFactory;
 use Magento\Newsletter\Model\SubscriberFactory;
 
+/**
+ * Class CustomerRepository
+ * @package Deity\Customer\Plugin\Customer\Api
+ */
 class CustomerRepository
 {
     /** @var SubscriberFactory */
@@ -65,7 +71,8 @@ class CustomerRepository
      *
      * @param CustomerInterface $customer
      */
-    private function addNewsletterAttributes(CustomerInterface$customer) {
+    private function addNewsletterAttributes(CustomerInterface$customer)
+    {
         $subscriber = $this->subscriberFactory->create();
         $subscriber->loadByEmail($customer->getEmail());
         $customer->getExtensionAttributes()->setNewsletterSubscriber($subscriber->isSubscribed());

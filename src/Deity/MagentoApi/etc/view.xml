@@ -34,18 +34,6 @@
                 <width>110</width>
                 <height>160</height>
             </image>
-            <image id="customer_account_my_tags_tag_view" type="small_image">
-                <width>100</width>
-                <height>100</height>
-            </image>
-            <image id="customer_account_product_review_page" type="image">
-                <width>285</width>
-                <height>285</height>
-            </image>
-            <image id="customer_shared_wishlist" type="small_image">
-                <width>113</width>
-                <height>113</height>
-            </image>
             <image id="gift_messages_checkout_small_image" type="small_image">
                 <width>75</width>
                 <height>75</height>

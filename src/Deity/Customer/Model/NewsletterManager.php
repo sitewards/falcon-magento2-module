@@ -1,12 +1,18 @@
 <?php
-namespace Deity\MagentoApi\Model\Customer;
+declare(strict_types=1);
 
-use Deity\MagentoApi\Api\Customer\NewsletterManagerInterface;
-use Deity\MagentoApi\Model\Security\CustomerContext;
+namespace Deity\Customer\Model;
+
+use Deity\Customer\Model\Security\CustomerContext;
+use Deity\CustomerApi\Api\NewsletterManagerInterface;
 use Magento\Framework\Exception\AuthorizationException;
 use Magento\Newsletter\Model\Subscriber;
 use Magento\Newsletter\Model\SubscriberFactory;
 
+/**
+ * Class NewsletterManager
+ * @package Deity\Customer\Model
+ */
 class NewsletterManager implements NewsletterManagerInterface
 {
     /** @var CustomerContext */
@@ -22,8 +28,7 @@ class NewsletterManager implements NewsletterManagerInterface
     public function __construct(
         CustomerContext $customerContext,
         SubscriberFactory $subscriberFactory
-    )
-    {
+    ) {
         $this->customerContext = $customerContext;
         $this->subscriberFactory = $subscriberFactory;
     }

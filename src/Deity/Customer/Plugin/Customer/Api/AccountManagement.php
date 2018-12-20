@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Plugin\Customer\Api;
+namespace Deity\Customer\Plugin\Customer\Api;
 
 use Deity\MagentoApi\Model\Cart\MergeManagement;
 use Magento\Customer\Api\AccountManagementInterface;
@@ -9,6 +10,10 @@ use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class AccountManagement
+ * @package Deity\Customer\Plugin\Customer\Api
+ */
 class AccountManagement
 {
     /** @var CustomerRepositoryInterface */
@@ -20,7 +25,6 @@ class AccountManagement
     /** @var LoggerInterface */
     private $logger;
 
-
     /**
      * AccountManagement constructor.
      * @param CustomerRepositoryInterface $customerRepository
@@ -31,8 +35,7 @@ class AccountManagement
         CustomerRepositoryInterface $customerRepository,
         MergeManagement $cartMergeManagement,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->customerRepository = $customerRepository;
         $this->logger = $logger;
         $this->cartMergeManagement = $cartMergeManagement;

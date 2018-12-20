@@ -4,10 +4,6 @@
         <attribute code="name" type="string" />
         <attribute code="catalog_display_price" type="string" />
     </extension_attributes>
-    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
-        <attribute code="guest_quote_id" type="string" />
-        <attribute code="newsletter_subscriber" type="bool" />
-    </extension_attributes>
     <extension_attributes for="Magento\Quote\Api\Data\TotalsItemInterface">
         <attribute code="thumbnail_url" type="string" />
         <attribute code="url_key" type="string" />
