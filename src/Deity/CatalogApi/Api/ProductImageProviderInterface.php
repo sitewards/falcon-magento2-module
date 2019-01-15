@@ -14,7 +14,8 @@ interface ProductImageProviderInterface
     /**
      * @param Product $product
      * @param string $imageType
+     * @param string $imageFile
      * @return string
      */
-    public function getProductImageTypeUrl(Product $product, string $imageType): string;
+    public function getProductImageTypeUrl(Product $product, string $imageType, string $imageFile = ''): string;
 }

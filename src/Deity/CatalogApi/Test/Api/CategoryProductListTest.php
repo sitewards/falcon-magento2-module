@@ -42,6 +42,27 @@ class CategoryProductListTest extends WebapiAbstract
     /**
      * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_children.php
      */
+    public function testEmptyFiltersForCategoriesWithouthAnchor()
+    {
+        $childCategoryId = 4;
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $childCategoryId, self::RESOURCE_PATH),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEmpty(
+            $response['filters'],
+            'Filter array should be empty'
+        );
+    }
+
+    /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_children.php
+     */
     public function testGetListUrlPath()
     {
         $childCategoryId = 4;

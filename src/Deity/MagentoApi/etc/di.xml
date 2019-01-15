@@ -3,7 +3,6 @@
 
     <!-- INTERFACE PREFERENCES FOR DI -->
     <preference for="Deity\MagentoApi\Api\ContactFormInterface" type="Deity\MagentoApi\Model\ContactForm" />
-    <preference for="Deity\MagentoApi\Api\Data\GalleryMediaEntrySizeInterface" type="Deity\MagentoApi\Model\GalleryMediaEntrySize" />
     <preference for="Deity\MagentoApi\Api\Data\InfoDataInterface" type="Deity\MagentoApi\Model\InfoData" />
     <preference for="Deity\MagentoApi\Api\Data\OrderInfoInterface" type="Deity\MagentoApi\Model\OrderInfo" />
     <preference for="Deity\MagentoApi\Api\Data\OrderResponseInterface" type="Deity\MagentoApi\Model\Api\Data\OrderResponse" />

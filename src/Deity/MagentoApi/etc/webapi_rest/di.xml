@@ -28,10 +28,6 @@
         <plugin name="deityMagentoApiProductPlugin" type="\Deity\MagentoApi\Plugin\Catalog\Model\Product"/>
     </type>
 
-    <type name="Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface">
-        <plugin name="deityMagentoApiExtensionAttributeJoinProcessorPlugin" type="Deity\MagentoApi\Plugin\ExtensionAttribute\JoinProcessor" />
-    </type>
-
     <type name="Magento\Framework\App\RouterInterface">
         <plugin name="deityMagentoApiRouterPlugin" type="Deity\MagentoApi\Plugin\App\Router"/>
     </type>

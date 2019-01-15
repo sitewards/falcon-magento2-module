@@ -3,7 +3,9 @@
 
     <!-- INTERFACE PREFERENCES FOR DI -->
     <preference for="Deity\CatalogApi\Api\Data\FilterInterface" type="Deity\Catalog\Model\Data\Filter" />
+    <preference for="Deity\CatalogApi\Api\Data\GalleryMediaEntrySizeInterface" type="Deity\Catalog\Model\Data\GalleryMediaEntrySize" />
     <preference for="Deity\CatalogApi\Api\Data\FilterOptionInterface" type="Deity\Catalog\Model\Data\FilterOption" />
+    <preference for="Deity\CatalogApi\Api\MediaGalleryProviderInterface" type="Deity\Catalog\Model\Product\MediaGalleryProvider" />
     <preference for="Deity\CatalogApi\Api\CategoryProductListInterface" type="Deity\Catalog\Model\CategoryProductList" />
     <preference for="Deity\CatalogApi\Api\Data\ProductSearchResultsInterface" type="Deity\Catalog\Model\Data\ProductSearchResults" />
     <preference for="Deity\CatalogApi\Api\Data\ProductInterface" type="Deity\Catalog\Model\Data\Product" />

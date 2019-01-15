@@ -10,6 +10,22 @@
                 <width>185</width>
                 <height>185</height>
             </image>
+            <image id="product_list_thumbnail" type="thumbnail">
+                <width>300</width>
+                <height>300</height>
+            </image>
+            <image id="product_list_image" type="thumbnail">
+                <width>600</width>
+                <height>600</height>
+            </image>
+            <image id="product_media_gallery_item" type="thumbnail">
+                <width>1160</width>
+                <height>1000</height>
+            </image>
+            <image id="product_media_gallery_item_thumbnail" type="thumbnail">
+                <width>160</width>
+                <height>100</height>
+            </image>
         </images>
     </media>
 </view>

@@ -45,10 +45,6 @@ class Product
     {
         $this->productHelper->ensureOptionsForConfigurableProduct($product);
 
-        $this->productHelper->addProductImageAttribute($product);
-        $this->productHelper->addProductImageAttribute($product, 'product_list_image', 'thumbnail_url');
-        $this->productHelper->addMediaGallerySizes($product);
-
         if($product->getTypeId() !== 'configurable') {
             /** configurable product price is set to 0
              * and ensurePriceForConfigurableProduct may already set price with tax depending on settings

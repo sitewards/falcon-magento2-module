@@ -56,6 +56,11 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
      */
     public function getFilterList(Layer $layer): array
     {
+        if (!$layer->getCurrentCategory()->getIsAnchor()) {
+            //if category is not marked is_anchor, do not return filter data
+            return [];
+        }
+        
         /** @var AbstractFilter[] $magentoFilters */
         $magentoFilters = $this->filterList->getFilters($layer);
         $resultFilters = [];
