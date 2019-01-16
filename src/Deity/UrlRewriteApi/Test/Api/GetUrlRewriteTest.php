@@ -39,6 +39,7 @@ class GetUrlRewriteTest extends WebapiAbstract
         
         $item = $this->getUrlRewriteInfo('category-one');
         $this->assertEquals('CATEGORY', $item['entity_type'], "Item was retrieved successfully");
+        $this->assertContains('category-one', $item['canonical_url'], 'Request path appears in canonical URL.');
     }
 
     /**
@@ -50,5 +51,6 @@ class GetUrlRewriteTest extends WebapiAbstract
 
         $this->assertEquals('PRODUCT', $item['entity_type'], "Item was retrieved successfully");
         $this->assertEquals('simple', $item['entity_id'], "Item entity id was successfully converted");
+        $this->assertContains('simple-product.html', $item['canonical_url'], 'Request path appears in canonical URL.');
     }
 }

@@ -7,6 +7,10 @@
             <argument name="commandsPerEntityType" xsi:type="array">
                 <item name="product" xsi:type="object">Deity\UrlRewrite\Model\UrlRewrite\Command\ConvertProductIdToSku</item>
             </argument>
+            <argument name="canonicalUrlProviders" xsi:type="array">
+                <item name="base" xsi:type="object">Deity\UrlRewrite\Model\UrlRewrite\CanonicalUrlProvider\BaseUrlProvider</item>
+                <item name="product" xsi:type="object">Deity\UrlRewrite\Model\UrlRewrite\CanonicalUrlProvider\ProductUrlProvider</item>
+            </argument>
         </arguments>
     </type>
 </config>
