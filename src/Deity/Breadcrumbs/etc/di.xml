@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface" type="Deity\Breadcrumbs\Model\Data\Breadcrumb" />
+    <preference for="Deity\BreadcrumbsApi\Api\GetBreadcrumbsInterface" type="Deity\Breadcrumbs\Model\GetBreadcrumbs" />
+    <type name="Deity\Breadcrumbs\Model\GetBreadcrumbs">
+        <arguments>
+            <argument name="urlRewriteResolvers" xsi:type="array">
+                <item name="product" xsi:type="object">Deity\Breadcrumbs\Model\GetBreadcrumbs\Command\GetBreadcrumbsForCatalog</item>
+                <item name="category" xsi:type="object">Deity\Breadcrumbs\Model\GetBreadcrumbs\Command\GetBreadcrumbsForCatalog</item>
+                <item name="cms-page" xsi:type="object">Deity\Breadcrumbs\Model\GetBreadcrumbs\Command\GetBreadcrumbsForCmsPage</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

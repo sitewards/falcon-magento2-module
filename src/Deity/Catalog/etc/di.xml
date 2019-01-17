@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- INTERFACE PREFERENCES FOR DI -->
+    <preference for="Deity\CatalogApi\Api\Data\FilterInterface" type="Deity\Catalog\Model\Data\Filter" />
+    <preference for="Deity\CatalogApi\Api\Data\GalleryMediaEntrySizeInterface" type="Deity\Catalog\Model\Data\GalleryMediaEntrySize" />
+    <preference for="Deity\CatalogApi\Api\Data\FilterOptionInterface" type="Deity\Catalog\Model\Data\FilterOption" />
+    <preference for="Deity\CatalogApi\Api\MediaGalleryProviderInterface" type="Deity\Catalog\Model\Product\MediaGalleryProvider" />
+    <preference for="Deity\CatalogApi\Api\CategoryProductListInterface" type="Deity\Catalog\Model\CategoryProductList" />
+    <preference for="Deity\CatalogApi\Api\Data\ProductSearchResultsInterface" type="Deity\Catalog\Model\Data\ProductSearchResults" />
+    <preference for="Deity\CatalogApi\Api\Data\ProductInterface" type="Deity\Catalog\Model\Data\Product" />
+    <preference for="Deity\CatalogApi\Api\ProductConvertInterface" type="Deity\Catalog\Model\ProductConvert" />
+    <preference for="Deity\CatalogApi\Api\Data\ProductPriceInterface" type="Deity\Catalog\Model\Data\ProductPrice" />
+    <preference for="Deity\CatalogApi\Api\ProductImageProviderInterface" type="Deity\Catalog\Model\Product\ImageProvider" />
+    <preference for="Deity\CatalogApi\Api\ProductPriceProviderInterface" type="Deity\Catalog\Model\Product\PriceProvider" />
+    <preference for="Deity\CatalogApi\Api\ProductFilterProviderInterface" type="Deity\Catalog\Model\ProductFilterProvider" />
+
+    <type name="Deity\Catalog\Model\ProductConvert">
+        <arguments>
+            <argument name="urlFinder" xsi:type="object">Magento\CatalogUrlRewrite\Model\Storage\DbStorage</argument>
+        </arguments>
+    </type>
+    <type name="Deity\Catalog\Model\ProductFilterProvider">
+        <arguments>
+            <argument name="filterList" xsi:type="object">categoryFilterList</argument>
+        </arguments>
+    </type>
+    <virtualType name="Deity\Catalog\Model\Api\SearchCriteria\ProductCollectionProcessor" type="Magento\Eav\Model\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Deity\Catalog\Model\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Deity\Catalog\Model\CategoryProductList">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Deity\Catalog\Model\Api\SearchCriteria\ProductCollectionProcessor</argument>
+        </arguments>
+    </type>
+</config>

@@ -2,45 +2,45 @@
     "name": "deity/falcon-magento",
     "description": "Deity Magento API",
     "type": "magento2-module",
-    "version": "1.0.3",
+    "version": "2.0.0",
     "license": [
         "OSL-3.0"
     ],
     "autoload": {
-        "files": [
-            "src/registration.php"
+        "files" : [
+            "src/Deity/Base/registration.php",
+            "src/Deity/Breadcrumbs/registration.php",
+            "src/Deity/BreadcrumbsApi/registration.php",
+            "src/Deity/Catalog/registration.php",
+            "src/Deity/CatalogApi/registration.php",
+            "src/Deity/Customer/registration.php",
+            "src/Deity/CustomerApi/registration.php",
+            "src/Deity/MagentoApi/registration.php",
+            "src/Deity/Menu/registration.php",
+            "src/Deity/MenuApi/registration.php",
+            "src/Deity/Store/registration.php",
+            "src/Deity/Theme/registration.php",
+            "src/Deity/UrlRewrite/registration.php",
+            "src/Deity/UrlRewriteApi/registration.php"
         ],
         "psr-4": {
-            "Deity\\MagentoApi\\": "src",
-            "Deity\\MagentoCmd\\": "cmd"
+            "Deity\\Base\\": "src/Deity/Base",
+            "Deity\\Breadcrumbs\\": "src/Deity/Breadcrumbs",
+            "Deity\\BreadcrumbsApi\\": "src/Deity/BreadcrumbsApi",
+            "Deity\\Catalog\\": "src/Deity/Catalog",
+            "Deity\\CatalogApi\\": "src/Deity/CatalogApi",
+            "Deity\\Customer\\": "src/Deity/Customer",
+            "Deity\\CustomerApi\\": "src/Deity/CustomerApi",
+            "Deity\\MagentoApi\\": "src/Deity/MagentoApi",
+            "Deity\\Menu\\": "src/Deity/Menu",
+            "Deity\\MenuApi\\": "src/Deity/MenuApi",
+            "Deity\\Store\\": "src/Deity/Store",
+            "Deity\\Theme\\": "src/Deity/Theme",
+            "Deity\\UrlRewrite\\": "src/Deity/UrlRewrite",
+            "Deity\\UrlRewriteApi\\": "src/Deity/UrlRewriteApi"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Deity\\MagentoApi\\": ["tests/integration", "tests/api-functional"]
-        }
-    },
-    "scripts": {
-        "release": "Deity\\MagentoCmd\\Command::run"
     },
     "require": {
         "magento/framework": "^101.0.0 || ^102.0.0"
-    },
-    "require-dev": {
-        "phpro/grumphp": "^0.13.1",
-        "magento/marketplace-eqp": "dev-master@dev",
-        "jakub-onderka/php-parallel-lint": "^0.9.2",
-        "phan/phan": "^0.10.3",
-        "phpmd/phpmd": "^2.6"
-    },
-    "repositories": {
-        "magento": {
-            "type": "composer",
-            "url": "https://repo.magento.com/"
-        },
-        "magento-eqp": {
-            "type": "vcs",
-            "url": "https://github.com/magento/marketplace-eqp.git"
-        }
     }
 }

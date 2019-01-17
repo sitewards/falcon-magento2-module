@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/customers/password/reset" method="PUT">
+        <service class="Magento\Customer\Api\AccountManagementInterface" method="resetPassword"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/customers/me/address/" method="GET">
+        <service class="Deity\CustomerApi\Api\AddressRepositoryInterface" method="getCustomerAddressList"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me/address/:addressId" method="GET">
+        <service class="Deity\CustomerApi\Api\AddressRepositoryInterface" method="getCustomerAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me/address" method="POST">
+        <service class="Deity\CustomerApi\Api\AddressRepositoryInterface" method="createCustomerAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me/address" method="PUT">
+        <service class="Deity\CustomerApi\Api\AddressRepositoryInterface" method="updateCustomerAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me/address/:addressId" method="DELETE">
+        <service class="Deity\CustomerApi\Api\AddressRepositoryInterface" method="deleteCustomerAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/customers/me/newsletter/subscribe" method="PUT">
+        <service class="Deity\CustomerApi\Api\NewsletterManagerInterface" method="subscribeCustomer"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/customers/me/newsletter/unsubscribe" method="PUT">
+        <service class="Deity\CustomerApi\Api\NewsletterManagerInterface" method="unsubscribeCustomer"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+</routes>

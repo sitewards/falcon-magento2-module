@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- INTERFACE PREFERENCES FOR DI -->
+    <preference for="Deity\MagentoApi\Api\ContactFormInterface" type="Deity\MagentoApi\Model\ContactForm" />
+    <preference for="Deity\MagentoApi\Api\Data\InfoDataInterface" type="Deity\MagentoApi\Model\InfoData" />
+    <preference for="Deity\MagentoApi\Api\Data\OrderInfoInterface" type="Deity\MagentoApi\Model\OrderInfo" />
+    <preference for="Deity\MagentoApi\Api\Data\OrderResponseInterface" type="Deity\MagentoApi\Model\Api\Data\OrderResponse" />
+    <preference for="Deity\MagentoApi\Api\Sales\GuestOrderManagementInterface" type="Deity\MagentoApi\Model\Sales\GuestOrderManagement" />
+    <preference for="Deity\MagentoApi\Api\Sales\OrderManagementInterface" type="Deity\MagentoApi\Model\Sales\OrderManagement" />
+    <preference for="Deity\MagentoApi\Api\InfoInterface" type="Deity\MagentoApi\Model\Info" />
+    <preference for="Deity\MagentoApi\Api\Payment\Data\PaypalDataInterface" type="Deity\MagentoApi\Model\Payment\PaypalData" />
+    <preference for="Deity\MagentoApi\Api\Payment\GuestPaypalInterface" type="Deity\MagentoApi\Model\Payment\GuestPaypal" />
+    <preference for="Deity\MagentoApi\Api\Payment\PaypalInterface" type="Deity\MagentoApi\Model\Payment\Paypal" />
+    <preference for="Deity\MagentoApi\Api\QuoteMaskInterface" type="Deity\MagentoApi\Model\QuoteMask" />
+
+    <!-- OVERRIDES -->
+    <preference for="Magento\Paypal\Model\Express\Checkout" type="Deity\MagentoApi\Model\Payment\Paypal\Express\Checkout" />
+    <preference for="Magento\Paypal\Model\Express" type="Deity\MagentoApi\Model\Payment\Paypal\Express" />
+    <preference for="Magento\Paypal\Model\Pro" type="Deity\MagentoApi\Model\Payment\Paypal\Pro" />
+
+    <!-- PLUGINS -->
+    <type name="Magento\Sales\Api\OrderManagementInterface">
+        <plugin name="deityMagentoApiOrderManagementPlugin" type="Deity\MagentoApi\Plugin\Sales\Api\OrderManagement" />
+    </type>
+</config>

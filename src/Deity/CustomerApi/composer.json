@@ -1,0 +1,22 @@
+{
+    "name": "deity/falcon-magento-customer-api",
+    "description": "Deity Magento Customer API",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "require": {
+        "magento/framework": "*",
+        "magento/module-customer" : "*",
+        "php": "^7.0"
+    },
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Deity\\CustomerApi\\": ""
+        }
+    }
+}
