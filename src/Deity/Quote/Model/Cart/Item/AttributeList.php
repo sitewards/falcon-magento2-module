@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Model\Cart\Item;
+namespace Deity\Quote\Model\Cart\Item;
 
 class AttributeList
 {

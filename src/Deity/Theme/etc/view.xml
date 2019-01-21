@@ -26,6 +26,14 @@
                 <width>160</width>
                 <height>100</height>
             </image>
+            <image id="deity_checkout_cart_thumbnail" type="thumbnail">
+                <width>150</width>
+                <height>150</height>
+            </image>
+            <image id="deity_checkout_onepage_thumbnail" type="thumbnail">
+                <width>150</width>
+                <height>150</height>
+            </image>
         </images>
     </media>
 </view>

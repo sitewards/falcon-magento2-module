@@ -32,14 +32,6 @@
         <plugin name="deityMagentoApiRouterPlugin" type="Deity\MagentoApi\Plugin\App\Router"/>
     </type>
 
-    <type name="Magento\Quote\Api\CartItemRepositoryInterface">
-        <plugin name="deityMagentoApiCartItemRepositoryPlugin" type="Deity\MagentoApi\Plugin\Quote\Model\Cart\ItemRepository" />
-    </type>
-
-    <type name="Magento\Quote\Model\Cart\Totals\ItemConverter">
-        <plugin name="deityMagentoApiTotalsItemConverter" type="Deity\MagentoApi\Plugin\Quote\Model\Cart\Totals\ItemConverter" />
-    </type>
-
     <type name="Magento\Quote\Model\Quote">
         <plugin name="deityMagentoApiQuotePlugin" type="Deity\MagentoApi\Plugin\Quote\Model\Quote" />
     </type>
