@@ -1,27 +1,26 @@
 <?php
-declare(strict_types=1);
+/**
+ * Created by Ryan Copeland <ryan@ryancopeland.co.uk>.
+ * User: ryancopeland
+ * Date: 2019-01-05
+ * Time: 15:50
+ */
 
 namespace Deity\UrlRewrite\Model\UrlRewrite\CanonicalUrlProvider;
 
 use Deity\UrlRewriteApi\Api\CanonicalUrlProviderInterface;
-use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 class ProductUrlProvider implements CanonicalUrlProviderInterface
 {
     /**
-     * @var ProductRepositoryInterface
+     * @var \Magento\Catalog\Api\ProductRepositoryInterface
      */
     private $productRepository;
 
-    /**
-     * ProductUrlProvider constructor.
-     * @param ProductRepositoryInterface $productRepository
-     */
     public function __construct(
-        ProductRepositoryInterface $productRepository
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
     ) {
         $this->productRepository = $productRepository;
     }
@@ -30,10 +29,9 @@ class ProductUrlProvider implements CanonicalUrlProviderInterface
      * @param $urlModel UrlRewrite
      * @return string
      */
-    public function getCanonicalUrl(UrlRewrite $urlModel): string
+    public function getCanonicalUrl(UrlRewrite $urlModel)
     {
         try {
-            /** @var Product $product */
             $product = $this->productRepository->getById($urlModel->getEntityId());
         } catch (NoSuchEntityException $e) {
             return '';

@@ -40,7 +40,7 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     private $commandsPerEntityType;
 
     /**
-     * @var CanonicalUrlProviderInterface[]
+     * @var array
      */
     private $canonicalUrlProviders;
 
@@ -113,10 +113,8 @@ class GetUrlRewrite implements GetUrlRewriteInterface
                 $this->canonicalUrlProviders[$urlModel->getEntityType()]->getCanonicalUrl($urlModel)
             );
         } else {
-            //Use base if entity type is not specified in canonicalUrlProviders di argument.
-            $urlData->setCanonicalUrl(
-                $this->canonicalUrlProviders[CanonicalUrlProviderInterface::BASE_KEY]->getCanonicalUrl($urlModel)
-            );
+            //Use default if entity type is not specified in canonicalUrlProviders di argument.
+            $urlData->setCanonicalUrl($this->canonicalUrlProviders['base']->getCanonicalUrl($urlModel));
         }
 
         if (isset($this->commandsPerEntityType[$urlModel->getEntityType()])) {
@@ -127,11 +125,11 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     }
 
     /**
-     * @param string $path
+     * @param $path
      * @return UrlRewrite
      * @throws NoSuchEntityException
      */
-    private function getUrlModel(string $path): UrlRewrite
+    private function getUrlModel($path)
     {
         $urlModel = $this->urlFinder->findOneByData(
             [

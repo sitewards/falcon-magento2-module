@@ -32,10 +32,6 @@
         <plugin name="deityMagentoApiRouterPlugin" type="Deity\MagentoApi\Plugin\App\Router"/>
     </type>
 
-    <type name="Magento\Quote\Model\Quote">
-        <plugin name="deityMagentoApiQuotePlugin" type="Deity\MagentoApi\Plugin\Quote\Model\Quote" />
-    </type>
-
     <type name="Magento\Quote\Model\QuoteManagement">
         <plugin name="deityMagentoApiQuoteManagement" type="Deity\MagentoApi\Plugin\Quote\Model\QuoteManagement" />
     </type>
