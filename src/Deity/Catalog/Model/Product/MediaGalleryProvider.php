@@ -13,6 +13,7 @@ use Magento\Catalog\Model\Product\Gallery\ReadHandler;
 
 /**
  * Class MediaGalleryProvider
+ *
  * @package Deity\Catalog\Model\Product
  */
 class MediaGalleryProvider implements MediaGalleryProviderInterface
@@ -50,8 +51,7 @@ class MediaGalleryProvider implements MediaGalleryProviderInterface
     }
 
     /**
-     * @param ProductInterface $product
-     * @return \Deity\Catalog\Model\Data\GalleryMediaEntrySize[]
+     * @inheritdoc
      */
     public function getMediaGallerySizes(ProductInterface $product): array
     {

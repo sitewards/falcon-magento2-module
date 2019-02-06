@@ -10,6 +10,7 @@ use Magento\Store\Api\StoreRepositoryInterface;
 
 /**
  * Class StoreRepository
+ *
  * @package Deity\Store\Plugin\Model
  */
 class StoreRepository
@@ -29,6 +30,8 @@ class StoreRepository
     }
 
     /**
+     * After plugin for getList method
+     *
      * @param StoreRepositoryInterface $subject
      * @param StoreInterface[] $result
      * @return StoreInterface[]

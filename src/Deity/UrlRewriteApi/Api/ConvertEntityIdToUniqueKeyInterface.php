@@ -13,6 +13,8 @@ interface ConvertEntityIdToUniqueKeyInterface
 {
 
     /**
+     * Execute method for function object
+     *
      * @param UrlRewriteInterface $rewrite
      * @return void
      */

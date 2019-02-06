@@ -15,6 +15,7 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
  * Class GetBreadcrumbsForCatalog
+ *
  * @package Deity\Breadcrumbs\Model\GetBreadcrumbs\Command
  */
 class GetBreadcrumbsForCatalog implements UrlRewriteBreadcrumbResolverInterface
@@ -60,6 +61,8 @@ class GetBreadcrumbsForCatalog implements UrlRewriteBreadcrumbResolverInterface
     }
 
     /**
+     * Get breadcrumbs for product
+     *
      * @param UrlRewrite $urlRewrite
      * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
      * @throws NoSuchEntityException
@@ -78,6 +81,8 @@ class GetBreadcrumbsForCatalog implements UrlRewriteBreadcrumbResolverInterface
     }
 
     /**
+     * Get breadcrumbs for category
+     *
      * @param int $leafCategoryId
      * @param bool $excludeLeafCategory
      * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
@@ -121,9 +126,7 @@ class GetBreadcrumbsForCatalog implements UrlRewriteBreadcrumbResolverInterface
     }
 
     /**
-     * @param UrlRewrite $urlRewrite
-     * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
-     * @throws NoSuchEntityException
+     * @inheritdoc
      */
     public function getBreadcrumbsByUrlRewrite(UrlRewrite $urlRewrite): array
     {
@@ -136,6 +139,8 @@ class GetBreadcrumbsForCatalog implements UrlRewriteBreadcrumbResolverInterface
     }
 
     /**
+     * Get Path By Category Id
+     *
      * @param int $categoryId
      * @return string
      * @throws NoSuchEntityException

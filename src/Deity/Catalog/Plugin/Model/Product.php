@@ -9,6 +9,7 @@ use Magento\Catalog\Model\Product as MagentoProduct;
 
 /**
  * Class Product
+ *
  * @package Deity\Catalog\Plugin\Model
  */
 class Product

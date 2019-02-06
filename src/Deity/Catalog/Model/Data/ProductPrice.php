@@ -8,6 +8,7 @@ use Magento\Framework\Api\AbstractSimpleObject;
 
 /**
  * Class ProductPrice
+ *
  * @package Deity\Catalog\Model\Data
  */
 class ProductPrice implements ProductPriceInterface
@@ -42,7 +43,7 @@ class ProductPrice implements ProductPriceInterface
     }
 
     /**
-     * @return float
+     * @inheritdoc
      */
     public function getRegularPrice(): float
     {
@@ -50,7 +51,7 @@ class ProductPrice implements ProductPriceInterface
     }
 
     /**
-     * @return float
+     * @inheritdoc
      */
     public function getSpecialPrice(): ?float
     {
@@ -58,7 +59,7 @@ class ProductPrice implements ProductPriceInterface
     }
 
     /**
-     * @return float
+     * @inheritdoc
      */
     public function getMinTierPrice(): ?float
     {

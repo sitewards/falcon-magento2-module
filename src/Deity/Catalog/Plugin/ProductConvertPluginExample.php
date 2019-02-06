@@ -9,11 +9,14 @@ use Magento\Catalog\Model\Product;
 
 /**
  * Class ProductConvertPluginExample
+ *
  * @package Deity\Catalog\Plugin
  */
 class ProductConvertPluginExample
 {
     /**
+     * After plugin for convert function
+     *
      * @param ProductConvertInterface $productConvertObject
      * @param ProductInterface $deityProduct
      * @return ProductInterface

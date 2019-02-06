@@ -11,6 +11,7 @@ use Magento\Newsletter\Model\SubscriberFactory;
 
 /**
  * Class NewsletterManager
+ *
  * @package Deity\Customer\Model
  */
 class NewsletterManager implements NewsletterManagerInterface
@@ -34,9 +35,7 @@ class NewsletterManager implements NewsletterManagerInterface
     }
 
     /**
-     * @param int $customerId
-     * @return bool
-     * @throws AuthorizationException
+     * @inheritdoc
      */
     public function subscribeCustomer($customerId)
     {
@@ -50,9 +49,7 @@ class NewsletterManager implements NewsletterManagerInterface
     }
 
     /**
-     * @param int $customerId
-     * @return bool
-     * @throws AuthorizationException
+     * @inheritdoc
      */
     public function unsubscribeCustomer($customerId)
     {

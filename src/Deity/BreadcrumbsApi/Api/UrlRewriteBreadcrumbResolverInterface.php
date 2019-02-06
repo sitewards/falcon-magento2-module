@@ -7,11 +7,14 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
  * Interface UrlRewriteBreadcrumbResolverInterface
+ *
  * @package Deity\BreadcrumbsApi\Api
  */
 interface UrlRewriteBreadcrumbResolverInterface
 {
     /**
+     * Get Breadcrumbs By Url Rewrite
+     *
      * @param UrlRewrite $urlRewrite
      * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
      */

@@ -8,6 +8,7 @@ use Magento\Framework\Exception\AuthorizationException;
 
 /**
  * Class CustomerContext
+ *
  * @package Deity\Customer\Model\Security
  */
 class CustomerContext

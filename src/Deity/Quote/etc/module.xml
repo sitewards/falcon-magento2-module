@@ -3,6 +3,7 @@
     <module name="Deity_Quote" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Quote"/>
+            <module name="Deity_QuoteApi"/>
         </sequence>
     </module>
 </config>

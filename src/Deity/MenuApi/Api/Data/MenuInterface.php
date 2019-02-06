@@ -19,17 +19,23 @@ interface MenuInterface extends ExtensibleDataInterface
     const CSS_CLASS = 'css_class';
 
     /**
+     * Get Name
+     *
      * @return string
      */
     public function getName(): string;
 
     /**
+     * Set Name
+     *
      * @param string $name
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
     public function setName(string $name): MenuInterface;
 
     /**
+     * Get Id
+     *
      * @return string
      */
     public function getId(): string;
@@ -37,7 +43,7 @@ interface MenuInterface extends ExtensibleDataInterface
     /**
      * Strict typing ommited to comply to AbstractModel
      *
-     * @param $id
+     * @param string $id
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
     public function setId($id): MenuInterface;
@@ -50,39 +56,53 @@ interface MenuInterface extends ExtensibleDataInterface
     public function getCssClass(): string;
 
     /**
+     * Set Css Class
+     *
      * @param string $cssClass
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
     public function setCssClass(string $cssClass): MenuInterface;
 
     /**
+     * Get Url Path
+     *
      * @return string
      */
     public function getUrlPath(): string;
 
     /**
+     * Set Url Path
+     *
      * @param string $urlPath
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
     public function setUrlPath(string $urlPath): MenuInterface;
     
     /**
+     * Get Children menu nodes
+     *
      * @return \Deity\MenuApi\Api\Data\MenuInterface[]
      */
     public function getChildren(): array;
 
     /**
+     * Set Childnen menu nodes
+     *
      * @param \Deity\MenuApi\Api\Data\MenuInterface[] $children
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
     public function setChildren(array $children): MenuInterface;
 
     /**
+     * Get extension Attributes
+     *
      * @return \Deity\MenuApi\Api\Data\MenuExtensionInterface
      */
     public function getExtensionAttributes();
 
     /**
+     * Set extension attributes
+     *
      * @param \Deity\MenuApi\Api\Data\MenuExtensionInterface $extensionAttributes
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */

@@ -6,6 +6,7 @@
     "require": {
         "magento/framework": "*",
         "magento/module-quote" : "*",
+        "deity/falcon-magento-quote-api": "*",
         "php": "^7.0"
     },
     "license": [

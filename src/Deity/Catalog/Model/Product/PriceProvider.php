@@ -13,6 +13,7 @@ use Magento\Catalog\Pricing\Price\MinimalPriceCalculatorInterface;
 
 /**
  * Class PriceProvider
+ *
  * @package Deity\Catalog\Model\Product
  */
 class PriceProvider implements ProductPriceProviderInterface
@@ -42,8 +43,7 @@ class PriceProvider implements ProductPriceProviderInterface
     }
 
     /**
-     * @param Product $product
-     * @return ProductPriceInterface
+     * @inheritdoc
      */
     public function getPriceData(Product $product): ProductPriceInterface
     {

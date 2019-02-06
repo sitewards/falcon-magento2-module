@@ -10,6 +10,11 @@ use Magento\Quote\Api\CartItemRepositoryInterface;
 use Magento\Quote\Api\Data\CartItemInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * Class ItemRepository
+ *
+ * @package Deity\Quote\Plugin\Model\Cart
+ */
 class ItemRepository
 {
     /** @var StoreManagerInterface */
@@ -21,6 +26,12 @@ class ItemRepository
     /** @var Link */
     protected $productWebsiteLink;
 
+    /**
+     * ItemRepository constructor.
+     * @param StoreManagerInterface $storeManager
+     * @param ProductResource $productResource
+     * @param Link $productWebsiteLink
+     */
     public function __construct(
         StoreManagerInterface $storeManager,
         ProductResource $productResource,

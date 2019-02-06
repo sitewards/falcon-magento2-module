@@ -5,6 +5,10 @@ namespace Deity\UrlRewriteApi\Test\Api;
 
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
+/**
+ * Class GetUrlRewriteTest
+ * @package Deity\UrlRewriteApi\Test\Api
+ */
 class GetUrlRewriteTest extends WebapiAbstract
 {
 

@@ -10,6 +10,7 @@ use Magento\Framework\Exception\IntegrationException;
 
 /**
  * Class ConvertProductIdToSku
+ *
  * @package Deity\UrlRewrite\Model\UrlRewrite\Command
  */
 class ConvertProductIdToSku implements ConvertEntityIdToUniqueKeyInterface
@@ -30,9 +31,7 @@ class ConvertProductIdToSku implements ConvertEntityIdToUniqueKeyInterface
     }
 
     /**
-     * @param UrlRewriteInterface $rewrite
-     * @return void
-     * @throws IntegrationException
+     * @inheritdoc
      */
     public function execute(UrlRewriteInterface $rewrite): void
     {

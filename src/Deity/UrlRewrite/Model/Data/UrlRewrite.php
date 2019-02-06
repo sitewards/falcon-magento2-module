@@ -7,6 +7,8 @@ use Deity\UrlRewriteApi\Api\Data\UrlRewriteInterface;
 use Magento\Framework\Api\AbstractExtensibleObject;
 
 /**
+ * UrlRewrite
+ *
  * @package Deity\UrlRewrite
  */
 class UrlRewrite extends AbstractExtensibleObject implements UrlRewriteInterface
@@ -44,7 +46,7 @@ class UrlRewrite extends AbstractExtensibleObject implements UrlRewriteInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getCanonicalUrl(): string
     {
@@ -52,8 +54,7 @@ class UrlRewrite extends AbstractExtensibleObject implements UrlRewriteInterface
     }
 
     /**
-     * @param string $url
-     * @return void
+     * @inheritdoc
      */
     public function setCanonicalUrl(string $url): void
     {

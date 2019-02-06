@@ -17,6 +17,7 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
  * Class ProductConvert
+ *
  * @package Deity\Catalog\Model
  */
 class ProductConvert implements ProductConvertInterface
@@ -67,11 +68,7 @@ class ProductConvert implements ProductConvertInterface
     }
 
     /**
-     * Convert product to array representation
-     *
-     * @param Product $product
-     * @return DeityProductInterface
-     * @throws LocalizedException
+     * @inheritdoc
      */
     public function convert(Product $product): DeityProductInterface
     {
@@ -100,6 +97,8 @@ class ProductConvert implements ProductConvertInterface
     }
 
     /**
+     * Get product url path
+     *
      * @param Product $product
      * @return string
      * @throws LocalizedException
@@ -133,7 +132,7 @@ class ProductConvert implements ProductConvertInterface
     }
 
     /**
-     * @return ProductInterface
+     * @inheritdoc
      */
     public function getCurrentProduct(): ProductInterface
     {

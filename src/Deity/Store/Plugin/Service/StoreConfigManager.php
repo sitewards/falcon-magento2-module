@@ -12,6 +12,11 @@ use Magento\Store\Api\StoreConfigManagerInterface;
 use Magento\Store\Api\Data\StoreConfigExtensionInterface;
 use Magento\Store\Api\Data\StoreConfigExtensionFactory;
 
+/**
+ * Class StoreConfigManager
+ *
+ * @package Deity\Store\Plugin\Service
+ */
 class StoreConfigManager
 {
 
@@ -53,6 +58,8 @@ class StoreConfigManager
     }
 
     /**
+     * After plugin for getStoreConfigs method
+     *
      * @param StoreConfigManagerInterface $subject
      * @param StoreConfigInterface[] $result
      * @return StoreConfigInterface[]

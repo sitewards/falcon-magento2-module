@@ -8,13 +8,13 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
  * Class GetBreadcrumbsForCmsPage
+ *
  * @package Deity\Breadcrumbs\Model\GetBreadcrumbs\Command
  */
 class GetBreadcrumbsForCmsPage implements UrlRewriteBreadcrumbResolverInterface
 {
     /**
-     * @param UrlRewrite $urlRewrite
-     * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
+     * @inheritdoc
      */
     public function getBreadcrumbsByUrlRewrite(UrlRewrite $urlRewrite): array
     {

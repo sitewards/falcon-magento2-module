@@ -13,6 +13,7 @@ use Magento\Catalog\Model\Layer\Filter\Item;
 
 /**
  * Class ProductFilterProvider
+ *
  * @package Deity\Catalog\Model
  */
 class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProviderInterface
@@ -50,9 +51,7 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
     }
 
     /**
-     * @param Layer $layer
-     * @return \Deity\CatalogApi\Api\Data\FilterInterface[]
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @inheritdoc
      */
     public function getFilterList(Layer $layer): array
     {

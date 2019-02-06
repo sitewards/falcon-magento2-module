@@ -16,6 +16,7 @@ use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class GetMenu
+ *
  * @package Deity\Menu\Model
  */
 class GetMenu implements GetMenuInterface
@@ -60,13 +61,11 @@ class GetMenu implements GetMenuInterface
     }
 
     /**
-     * @return \Deity\MenuApi\Api\Data\MenuInterface[]
-     * @throws LocalizedException
-     * @throws NoSuchEntityException
+     * @inheritdoc
      */
     public function execute(): array
     {
-        $rootId = $this->storeManager->getStore()->getRootCategoryId();
+        $rootId = (int)$this->storeManager->getStore()->getRootCategoryId();
         $storeId = $this->storeManager->getStore()->getId();
         /** @var Collection $collection */
         $collection = $this->getCategoryTree($storeId, $rootId);
@@ -79,15 +78,17 @@ class GetMenu implements GetMenuInterface
     }
 
     /**
+     * Build category tree
+     *
      * @param array $menuStack
-     * @param $rootId
+     * @param int $rootId
      * @return \Deity\MenuApi\Api\Data\MenuInterface[]
      */
-    private function buildTree(array $menuStack, $rootId): array
+    private function buildTree(array $menuStack, int $rootId): array
     {
         $resultStack = [];
         foreach ($menuStack[$rootId] as $key => $category) {
-            $id = $category->getId();
+            $id = (int)$category->getId();
             $menuObject = $this->convertCategoryToMenuItem($category);
             if (isset($menuStack[$id])) {
                 $menuObject->setChildren($this->buildTree($menuStack, $id));
@@ -99,10 +100,7 @@ class GetMenu implements GetMenuInterface
     }
 
     /**
-     * Convert category to array
-     *
-     * @param Category $category
-     * @return MenuInterface
+     * @inheritdoc
      */
     public function convertCategoryToMenuItem(Category $category): MenuInterface
     {

@@ -11,6 +11,7 @@ use Magento\Newsletter\Model\SubscriberFactory;
 
 /**
  * Class CustomerRepository
+ *
  * @package Deity\Customer\Plugin\Customer\Api
  */
 class CustomerRepository
@@ -39,6 +40,7 @@ class CustomerRepository
      * @param CustomerRepositoryInterface $subject
      * @param CustomerInterface $result
      * @return CustomerInterface
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterGetById(CustomerRepositoryInterface $subject, CustomerInterface $result)
     {

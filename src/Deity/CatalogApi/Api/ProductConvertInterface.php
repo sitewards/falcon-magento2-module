@@ -8,6 +8,7 @@ use Magento\Catalog\Api\Data\ProductInterface;
 
 /**
  * Interface ConvertInterface
+ *
  * @package Deity\CatalogApi\Api\Data
  */
 interface ProductConvertInterface
@@ -21,6 +22,8 @@ interface ProductConvertInterface
     public function convert(\Magento\Catalog\Model\Product $product): DeityProductInterface;
 
     /**
+     * Get current product
+     *
      * @return ProductInterface
      */
     public function getCurrentProduct(): ProductInterface;

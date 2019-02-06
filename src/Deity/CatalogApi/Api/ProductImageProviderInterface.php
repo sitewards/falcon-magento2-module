@@ -7,11 +7,14 @@ use Magento\Catalog\Model\Product;
 
 /**
  * Interface ProductImageProviderInterface
+ *
  * @package Deity\CatalogApi\Api
  */
 interface ProductImageProviderInterface
 {
     /**
+     * Get product image type url
+     *
      * @param Product $product
      * @param string $imageType
      * @param string $imageFile

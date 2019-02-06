@@ -13,6 +13,7 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
  * Class GetBreadcrumbs
+ *
  * @package Deity\Breadcrumbs\Model
  */
 class GetBreadcrumbs implements GetBreadcrumbsInterface
@@ -57,6 +58,8 @@ class GetBreadcrumbs implements GetBreadcrumbsInterface
     }
 
     /**
+     * Get Breadcrumbs by Url Model
+     *
      * @param UrlRewrite $urlModel
      * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
      * @throws InputException
@@ -71,10 +74,7 @@ class GetBreadcrumbs implements GetBreadcrumbsInterface
     }
 
     /**
-     * @param string $url
-     * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
-     * @throws NoSuchEntityException
-     * @throws InputException
+     * @inheritdoc
      */
     public function execute(string $url): array
     {
@@ -82,12 +82,14 @@ class GetBreadcrumbs implements GetBreadcrumbsInterface
     }
 
     /**
-     * @param $path
+     * Get url model
+     *
+     * @param string $path
      * @return UrlRewrite
      * @throws NoSuchEntityException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    private function getUrlModel($path)
+    private function getUrlModel(string $path)
     {
         $urlModel = $this->urlFinder->findOneByData(
             [

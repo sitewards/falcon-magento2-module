@@ -7,6 +7,7 @@ use Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface;
 
 /**
  * Class Breadcrumb
+ *
  * @package Deity\Breadcrumbs\Model\Data
  */
 class Breadcrumb implements BreadcrumbInterface
@@ -34,7 +35,7 @@ class Breadcrumb implements BreadcrumbInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName(): string
     {
@@ -42,7 +43,7 @@ class Breadcrumb implements BreadcrumbInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getUrlPath(): string
     {

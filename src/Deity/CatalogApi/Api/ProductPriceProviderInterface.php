@@ -8,12 +8,15 @@ use Magento\Catalog\Model\Product;
 
 /**
  * Interface ProductPriceProviderInterface
+ *
  * @package Deity\CatalogApi\Api
  */
 interface ProductPriceProviderInterface
 {
 
     /**
+     * Get price data
+     *
      * @param Product $product
      * @return ProductPriceInterface
      */

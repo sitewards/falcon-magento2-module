@@ -11,7 +11,9 @@ use Deity\UrlRewriteApi\Api\Data\UrlRewriteInterface;
 interface GetUrlRewriteInterface
 {
     /**
-     * @param $url
+     * Execute method for function object
+     *
+     * @param string $url
      * @return \Deity\UrlRewriteApi\Api\Data\UrlRewriteInterface
      */
     public function execute(string $url): UrlRewriteInterface;

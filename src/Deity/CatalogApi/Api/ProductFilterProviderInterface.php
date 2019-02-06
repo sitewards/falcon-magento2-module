@@ -7,11 +7,14 @@ use Magento\Catalog\Model\Layer;
 
 /**
  * Interface ProductFilterProvider
+ *
  * @package Deity\CatalogApi\Api
  */
 interface ProductFilterProviderInterface
 {
     /**
+     * Get filter list
+     *
      * @param Layer $layer
      * @return \Deity\CatalogApi\Api\Data\FilterInterface[]
      */

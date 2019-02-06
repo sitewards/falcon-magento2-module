@@ -15,33 +15,45 @@ interface UrlRewriteInterface
     const CANONICAL_URL = 'canonical_url';
 
     /**
+     * Get entity type
+     *
      * @return string
      */
     public function getEntityType(): string;
 
     /**
+     * Set entity type
+     *
      * @param string $entityType
      * @return void
      */
     public function setEntityType(string $entityType): void;
 
     /**
+     * Get entity id
+     *
      * @return string
      */
     public function getEntityId(): string;
 
     /**
+     * Set entity id
+     *
      * @param string $id
      * @return void
      */
     public function setEntityId(string $id): void;
 
     /**
+     * Get canonical url
+     *
      * @return string
      */
     public function getCanonicalUrl(): string;
 
     /**
+     * Set canonical url
+     *
      * @param string $url
      * @return void
      */

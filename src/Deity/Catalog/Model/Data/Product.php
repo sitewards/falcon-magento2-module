@@ -9,6 +9,7 @@ use Magento\Framework\Model\AbstractExtensibleModel;
 
 /**
  * Class Product
+ *
  * @package Deity\Catalog\Model\Data
  */
 class Product extends AbstractExtensibleModel implements ProductInterface
@@ -20,7 +21,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     private $priceObject;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getSku(): string
     {
@@ -28,8 +29,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @param string $sku
-     * @return \Deity\CatalogApi\Api\Data\ProductInterface
+     * @inheritdoc
      */
     public function setSku(string $sku): ProductInterface
     {
@@ -38,7 +38,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName(): string
     {
@@ -46,8 +46,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @param string $name
-     * @return \Deity\CatalogApi\Api\Data\ProductInterface
+     * @inheritdoc
      */
     public function setName(string $name): ProductInterface
     {
@@ -56,7 +55,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getImage(): string
     {
@@ -64,8 +63,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @param string $image
-     * @return \Deity\CatalogApi\Api\Data\ProductInterface
+     * @inheritdoc
      */
     public function setImage(string $image): ProductInterface
     {
@@ -74,7 +72,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getUrlPath(): string
     {
@@ -82,8 +80,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @param string $urlPath
-     * @return \Deity\CatalogApi\Api\Data\ProductInterface
+     * @inheritdoc
      */
     public function setUrlPath(string $urlPath): ProductInterface
     {
@@ -92,7 +89,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @return \Deity\CatalogApi\Api\Data\ProductExtensionInterface|null
+     * @inheritdoc
      */
     public function getExtensionAttributes()
     {
@@ -106,8 +103,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @param \Deity\CatalogApi\Api\Data\ProductExtensionInterface $extensionAttributes
-     * @return \Deity\CatalogApi\Api\Data\ProductInterface
+     * @inheritdoc
      */
     public function setExtensionAttributes(
         \Deity\CatalogApi\Api\Data\ProductExtensionInterface $extensionAttributes
@@ -117,7 +113,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getIsSalable(): int
     {
@@ -125,8 +121,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @param int $salableFlag
-     * @return ProductInterface
+     * @inheritdoc
      */
     public function setIsSalable(int $salableFlag): ProductInterface
     {
@@ -135,7 +130,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @return \Deity\CatalogApi\Api\Data\ProductPriceInterface
+     * @inheritdoc
      */
     public function getPrice(): ProductPriceInterface
     {
@@ -143,8 +138,7 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * @param \Deity\CatalogApi\Api\Data\ProductPriceInterface $productPrice
-     * @return  \Deity\CatalogApi\Api\Data\ProductInterface
+     * @inheritdoc
      */
     public function setPrice(ProductPriceInterface $productPrice): ProductInterface
     {

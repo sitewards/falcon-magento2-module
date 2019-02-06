@@ -6,6 +6,11 @@ namespace Deity\Catalog\Model\Data;
 use Deity\CatalogApi\Api\Data\FilterOptionInterface;
 use Magento\Framework\Api\AbstractSimpleObject;
 
+/**
+ * Class FilterOption
+ *
+ * @package Deity\Catalog\Model\Data
+ */
 class FilterOption implements FilterOptionInterface
 {
 
@@ -38,7 +43,7 @@ class FilterOption implements FilterOptionInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel(): string
     {
@@ -46,7 +51,7 @@ class FilterOption implements FilterOptionInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getValue(): string
     {
@@ -54,7 +59,7 @@ class FilterOption implements FilterOptionInterface
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getCount(): int
     {

@@ -1,0 +1,24 @@
+{
+    "name": "deity/falcon-magento-checkout-api",
+    "description": "Deity Magento Checkout API",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "require": {
+        "magento/framework": "*",
+        "magento/module-checkout" : "*",
+        "magento/module-sales" : "*",
+        "deity/falcon-magento-quote-api" : "*",
+        "php": "^7.0"
+    },
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Deity\\CheckoutApi\\": ""
+        }
+    }
+}

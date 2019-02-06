@@ -7,11 +7,14 @@ use Magento\Catalog\Api\Data\ProductInterface;
 
 /**
  * Interface MediaGalleryProvider
+ *
  * @package Deity\CatalogApi\Api
  */
 interface MediaGalleryProviderInterface
 {
     /**
+     * Get media gallery sizes
+     *
      * @param ProductInterface $product
      * @return \Deity\Catalog\Model\Data\GalleryMediaEntrySize[]
      */

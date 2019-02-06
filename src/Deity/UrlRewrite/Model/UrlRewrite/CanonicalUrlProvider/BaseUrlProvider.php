@@ -11,6 +11,11 @@ namespace Deity\UrlRewrite\Model\UrlRewrite\CanonicalUrlProvider;
 use Deity\UrlRewriteApi\Api\CanonicalUrlProviderInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
+/**
+ * Class BaseUrlProvider
+ *
+ * @package Deity\UrlRewrite\Model\UrlRewrite\CanonicalUrlProvider
+ */
 class BaseUrlProvider implements CanonicalUrlProviderInterface
 {
     /**
@@ -18,6 +23,11 @@ class BaseUrlProvider implements CanonicalUrlProviderInterface
      */
     private $urlBuilder;
 
+    /**
+     * BaseUrlProvider constructor.
+     *
+     * @param \Magento\Framework\UrlInterface $urlBuilder
+     */
     public function __construct(
         \Magento\Framework\UrlInterface $urlBuilder
     ) {
@@ -25,8 +35,7 @@ class BaseUrlProvider implements CanonicalUrlProviderInterface
     }
 
     /**
-     * @param \Magento\UrlRewrite\Service\V1\Data\UrlRewrite $urlModel
-     * @return string
+     * @inheritdoc
      */
     public function getCanonicalUrl(UrlRewrite $urlModel)
     {

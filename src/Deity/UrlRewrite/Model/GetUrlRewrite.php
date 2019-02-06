@@ -15,6 +15,8 @@ use Magento\UrlRewrite\Model\UrlFinderInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
+ * GetUrlRewrite
+ *
  * @package Deity\UrlRewrite\Model
  */
 class GetUrlRewrite implements GetUrlRewriteInterface
@@ -51,6 +53,7 @@ class GetUrlRewrite implements GetUrlRewriteInterface
      * @param UrlRewriteInterfaceFactory $urlRewriteFactory
      * @param StoreManagerInterface $storeManager
      * @param array $commandsPerEntityType
+     * @param array $canonicalUrlProviders
      * @throws LocalizedException
      */
     public function __construct(
@@ -91,10 +94,7 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     }
 
     /**
-     * @param string $url
-     * @return UrlRewriteInterface
-     * @throws LocalizedException
-     * @throws NoSuchEntityException
+     * @inheritdoc
      */
     public function execute(string $url): UrlRewriteInterface
     {
@@ -125,11 +125,13 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     }
 
     /**
-     * @param $path
+     * Get url model
+     *
+     * @param string $path
      * @return UrlRewrite
      * @throws NoSuchEntityException
      */
-    private function getUrlModel($path)
+    private function getUrlModel(string $path)
     {
         $urlModel = $this->urlFinder->findOneByData(
             [

@@ -12,6 +12,7 @@ use Magento\Store\Model\App\Emulation;
 
 /**
  * Class ImageProvider
+ *
  * @package Deity\Catalog\Model\Product
  */
 class ImageProvider implements ProductImageProviderInterface
@@ -38,10 +39,7 @@ class ImageProvider implements ProductImageProviderInterface
     }
 
     /**
-     * @param Product $product
-     * @param string $imageId
-     * @param string imageFile
-     * @return string
+     * @inheritdoc
      */
     public function getProductImageTypeUrl(Product $product, string $imageId, string $imageFile = ''): string
     {

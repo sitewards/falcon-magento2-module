@@ -19,6 +19,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
  * Class AddressRepository
+ *
  * @package Deity\Customer\Model
  */
 class AddressRepository implements AddressRepositoryInterface
@@ -56,10 +57,7 @@ class AddressRepository implements AddressRepositoryInterface
     }
 
     /**
-     * @param SearchCriteriaInterface|null $searchCriteria
-     * @return AddressSearchResultsInterface
-     * @throws AuthorizationException
-     * @throws LocalizedException
+     * @inheritdoc
      */
     public function getCustomerAddressList(SearchCriteriaInterface $searchCriteria = null)
     {
@@ -84,10 +82,7 @@ class AddressRepository implements AddressRepositoryInterface
     }
 
     /**
-     * @param int $addressId
-     * @return AddressInterface
-     * @throws AuthorizationException
-     * @throws NoSuchEntityException
+     * @inheritdoc
      */
     public function getCustomerAddress($addressId)
     {
@@ -101,10 +96,7 @@ class AddressRepository implements AddressRepositoryInterface
     }
 
     /**
-     * @param AddressInterface $address
-     * @return AddressInterface
-     * @throws AuthorizationException
-     * @throws LocalizedException
+     * @inheritdoc
      */
     public function createCustomerAddress(AddressInterface $address)
     {
@@ -115,9 +107,7 @@ class AddressRepository implements AddressRepositoryInterface
     }
 
     /**
-     * @param AddressInterface $address
-     * @return AddressInterface
-     * @throws LocalizedException
+     * @inheritdoc
      */
     public function updateCustomerAddress(AddressInterface $address)
     {
@@ -136,11 +126,7 @@ class AddressRepository implements AddressRepositoryInterface
     }
 
     /**
-     * @param int $addressId
-     * @return bool
-     * @throws AuthorizationException
-     * @throws LocalizedException
-     * @throws NoSuchEntityException
+     * @inheritdoc
      */
     public function deleteCustomerAddress($addressId)
     {
@@ -155,8 +141,7 @@ class AddressRepository implements AddressRepositoryInterface
     }
 
     /**
-     * @param AddressInterface $customerAddress
-     * @return AddressInterface
+     * @inheritdoc
      */
     protected function ensureDefaultAddressFlags(AddressInterface $customerAddress)
     {

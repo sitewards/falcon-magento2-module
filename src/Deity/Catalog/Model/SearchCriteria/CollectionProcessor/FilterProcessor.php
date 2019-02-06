@@ -11,6 +11,7 @@ use Magento\Framework\Data\Collection\AbstractDb;
 
 /**
  * Class FilterProcessor
+ *
  * @package Deity\Catalog\Model\SearchCriteria\CollectionProcessor
  */
 class FilterProcessor implements CollectionProcessorInterface

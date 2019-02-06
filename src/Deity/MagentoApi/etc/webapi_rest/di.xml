@@ -1,12 +1,5 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-
-    <!-- INTERFACE PREFERENCES FOR DI -->
-    <preference for="Deity\MagentoApi\Api\Checkout\CartManagementInterface" type="\Magento\Quote\Model\QuoteManagement" />
-    <preference for="Deity\MagentoApi\Api\Checkout\GuestCartManagementInterface" type="\Magento\Quote\Model\GuestCart\GuestCartManagement" />
-    <preference for="Deity\MagentoApi\Api\Checkout\GuestPaymentInformationManagementInterface" type="\Magento\Checkout\Model\GuestPaymentInformationManagement" />
-    <preference for="Deity\MagentoApi\Api\Checkout\PaymentInformationManagementInterface" type="\Magento\Checkout\Model\PaymentInformationManagement" />
-
     <!-- PLUGINS -->
     <type name="Magento\Bundle\Helper\Catalog\Product\Configuration">
         <plugin name="deityMagentoApiBundleProductConfigurationHelper" type="\Deity\MagentoApi\Plugin\Bundle\Helper\Product\Configuration" />
@@ -30,9 +23,5 @@
 
     <type name="Magento\Framework\App\RouterInterface">
         <plugin name="deityMagentoApiRouterPlugin" type="Deity\MagentoApi\Plugin\App\Router"/>
-    </type>
-
-    <type name="Magento\Quote\Model\QuoteManagement">
-        <plugin name="deityMagentoApiQuoteManagement" type="Deity\MagentoApi\Plugin\Quote\Model\QuoteManagement" />
     </type>
 </config>

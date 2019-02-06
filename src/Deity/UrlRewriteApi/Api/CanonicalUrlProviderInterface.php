@@ -10,9 +10,15 @@ namespace Deity\UrlRewriteApi\Api;
 
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
+/**
+ * Interface CanonicalUrlProviderInterface
+ * @package Deity\UrlRewriteApi\Api
+ */
 interface CanonicalUrlProviderInterface
 {
     /**
+     * Provide canonical url for given UrlRewrite object
+     *
      * @param \Magento\UrlRewrite\Service\V1\Data\UrlRewrite $urlModel
      * @return string
      */

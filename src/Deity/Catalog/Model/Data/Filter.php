@@ -8,6 +8,11 @@ use Deity\CatalogApi\Api\Data\FilterOptionInterface;
 use Magento\Framework\Api\AbstractSimpleObject;
 use Magento\Framework\Phrase;
 
+/**
+ * Class Filter
+ *
+ * @package Deity\Catalog\Model\Data
+ */
 class Filter implements FilterInterface
 {
 
@@ -54,7 +59,7 @@ class Filter implements FilterInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel(): string
     {
@@ -62,7 +67,7 @@ class Filter implements FilterInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getCode(): string
     {
@@ -70,7 +75,7 @@ class Filter implements FilterInterface
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getAttributeId(): int
     {
@@ -78,7 +83,7 @@ class Filter implements FilterInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getType(): string
     {
@@ -86,7 +91,7 @@ class Filter implements FilterInterface
     }
 
     /**
-     * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface[]
+     * @inheritdoc
      */
     public function getOptions(): array
     {
@@ -94,8 +99,7 @@ class Filter implements FilterInterface
     }
 
     /**
-     * @param \Deity\CatalogApi\Api\Data\FilterOptionInterface $option
-     * @return \Deity\CatalogApi\Api\Data\FilterInterface
+     * @inheritdoc
      */
     public function addOption(FilterOptionInterface $option): FilterInterface
     {

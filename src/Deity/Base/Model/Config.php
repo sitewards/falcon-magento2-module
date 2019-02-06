@@ -5,6 +5,7 @@ namespace Deity\Base\Model;
 
 /**
  * Class Config
+ *
  * @package Deity\Base\Model
  */
 class Config
