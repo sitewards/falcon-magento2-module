@@ -3,8 +3,6 @@
 
     <!-- INTERFACE PREFERENCES FOR DI -->
     <preference for="Deity\MagentoApi\Api\Data\OrderInfoInterface" type="Deity\MagentoApi\Model\OrderInfo" />
-    <preference for="Deity\MagentoApi\Api\Sales\GuestOrderManagementInterface" type="Deity\MagentoApi\Model\Sales\GuestOrderManagement" />
-    <preference for="Deity\MagentoApi\Api\Sales\OrderManagementInterface" type="Deity\MagentoApi\Model\Sales\OrderManagement" />
     <preference for="Deity\MagentoApi\Api\Payment\Data\PaypalDataInterface" type="Deity\MagentoApi\Model\Payment\PaypalData" />
     <preference for="Deity\MagentoApi\Api\Payment\GuestPaypalInterface" type="Deity\MagentoApi\Model\Payment\GuestPaypal" />
     <preference for="Deity\MagentoApi\Api\Payment\PaypalInterface" type="Deity\MagentoApi\Model\Payment\Paypal" />
@@ -14,9 +12,4 @@
     <preference for="Magento\Paypal\Model\Express\Checkout" type="Deity\MagentoApi\Model\Payment\Paypal\Express\Checkout" />
     <preference for="Magento\Paypal\Model\Express" type="Deity\MagentoApi\Model\Payment\Paypal\Express" />
     <preference for="Magento\Paypal\Model\Pro" type="Deity\MagentoApi\Model\Payment\Paypal\Pro" />
-
-    <!-- PLUGINS -->
-    <type name="Magento\Sales\Api\OrderManagementInterface">
-        <plugin name="deityMagentoApiOrderManagementPlugin" type="Deity\MagentoApi\Plugin\Sales\Api\OrderManagement" />
-    </type>
 </config>

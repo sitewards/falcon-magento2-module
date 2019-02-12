@@ -29,7 +29,7 @@ class GuestCartManagementTest extends WebapiAbstract
     /**
      * @var ObjectManagerInterface
      */
-    protected $objectManager;
+    private $objectManager;
 
     /**
      *  setup before every test run. Update app config

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Deity\SalesApi\Api\Data\OrderIdMaskInterface" type="Deity\Sales\Model\OrderIdMask" />
+    <preference for="Deity\SalesApi\Api\OrderIdMaskRepositoryInterface" type="Deity\Sales\Model\OrderIdMaskRepository" />
+    <preference for="Deity\SalesApi\Api\OrderManagementInterface" type="Deity\Sales\Model\OrderManagement" />
+    <preference for="Deity\SalesApi\Api\GuestOrderManagementInterface" type="Deity\Sales\Model\GuestOrderManagement" />
+
+    <type name="Magento\Sales\Api\OrderManagementInterface">
+        <plugin name="deity_magento_order_management" type="Deity\Sales\Plugin\Api\OrderManagement" />
+    </type>
+</config>
