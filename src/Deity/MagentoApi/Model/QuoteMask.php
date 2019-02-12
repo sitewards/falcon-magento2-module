@@ -4,6 +4,7 @@ namespace Deity\MagentoApi\Model;
 
 use Deity\MagentoApi\Api\Data\OrderInfoInterface;
 use Deity\MagentoApi\Api\QuoteMaskInterface;
+use Deity\SalesApi\Api\Data\OrderIdMaskInterfaceFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Quote\Model\QuoteIdMask;
@@ -21,20 +22,20 @@ class QuoteMask implements QuoteMaskInterface
     /** @var ObjectManagerInterface */
     protected $objectManager;
 
-    /** @var OrderIdMaskFactory */
+    /** @var OrderIdMaskInterfaceFactory */
     protected $orderIdMaskFactory;
 
     /**
      * QuoteMask constructor.
      * @param \Magento\Sales\Model\OrderFactory $orderFactory
      * @param QuoteIdMaskFactory $quoteIdMaskFactory
-     * @param OrderIdMaskFactory $orderIdMaskFactory
+     * @param OrderIdMaskInterfaceFactory $orderIdMaskFactory
      * @param ObjectManagerInterface $objectManager
      */
     public function __construct(
         \Magento\Sales\Model\OrderFactory $orderFactory,
         QuoteIdMaskFactory $quoteIdMaskFactory,
-        OrderIdMaskFactory$orderIdMaskFactory,
+        OrderIdMaskInterfaceFactory$orderIdMaskFactory,
         ObjectManagerInterface $objectManager
     ) {
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
