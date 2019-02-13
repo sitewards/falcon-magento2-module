@@ -1,4 +1,4 @@
-# Deity MagentoApi
+# Deity Magento Api
 
 Api adaptor for Deity Falcon
 
