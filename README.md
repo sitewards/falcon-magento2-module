@@ -28,7 +28,7 @@ magento >= 2.2
 Installing deity magento module is similar to installing any module for Magento 2 platform 
 
 ```
-composer require deity/falcon-magento 1.0.2
+composer require deity/falcon-magento ^3.0.0
 bin/magento setup:upgrade
 ```
 When the module is setup, create one extra magento admin user for Deity Falcon to connect
@@ -36,11 +36,6 @@ When the module is setup, create one extra magento admin user for Deity Falcon t
 ```
 bin/magento  admin:user:create  --admin-user='your-admin-username' --admin-password='your-admin-password' --admin-email='admin@deity.test' --admin-firstname='node' --admin-lastname='Deity'
 ```
-
-## Documentation
-
-Check out integration documentation for the module. 
-[Integration_notes.md](docs/Integration_notes.md)
 
 ## Versioning
 
