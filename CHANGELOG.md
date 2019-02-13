@@ -1,6 +1,15 @@
 **Note:** This is a cumulative changelog that outlines all of the changes to all magento modules in Deity [src/Deity](./src/Deity) namespace.
 
 Versions marked with a number and date (e.g. v0.1.0 (2018-10-05)) are already released and available via packagist. Versions without a date are not released yet.
+## v3.0.0 
+ - Removed `V1/contact` API
+ - Removed `V1/info` API
+ - Renamed customer order API from `/V1/carts/mine/deity-order` to `/V1/carts/mine/place-order`
+ - Introduced API tests for customer order API
+ - Renamed guest order API from `/V1/guest-carts/:cartId/deity-order` to `/V1/guest-carts/:cartId/place-order`
+ - Introduced API tests for guest order API
+ - Fixed the issue with guest order placement
+ - Refactored Order Id Mask classes. Introduced interfaces, repository. Introduced API tests.
 ## v2.0.1
  - Added product images to checkout `totals` API
 ## v2.0
