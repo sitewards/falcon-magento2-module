@@ -4,24 +4,16 @@
     <type name="Magento\Bundle\Helper\Catalog\Product\Configuration">
         <plugin name="deityMagentoApiBundleProductConfigurationHelper" type="\Deity\MagentoApi\Plugin\Bundle\Helper\Product\Configuration" />
     </type>
-
     <type name="Magento\Bundle\Model\Product\LinksList">
         <plugin name="deityMagentoApiBundleProductLinkListPlugin" type="\Deity\MagentoApi\Plugin\Bundle\Product\LinksList" />
     </type>
-
     <type name="Magento\Bundle\Model\Product\Type">
         <plugin name="deityMagentoApiBundleProductTypePlugin" type="\Deity\MagentoApi\Plugin\Bundle\Product\Type" />
     </type>
-
     <type name="Magento\Catalog\Helper\Product\Configuration">
         <plugin name="deityMagentoApiProductConfigurationHelper" type="\Deity\MagentoApi\Plugin\Catalog\Helper\Product\Configuration" />
     </type>
-
     <type name="Magento\Catalog\Model\Product">
         <plugin name="deityMagentoApiProductPlugin" type="\Deity\MagentoApi\Plugin\Catalog\Model\Product"/>
-    </type>
-
-    <type name="Magento\Framework\App\RouterInterface">
-        <plugin name="deityMagentoApiRouterPlugin" type="Deity\MagentoApi\Plugin\App\Router"/>
     </type>
 </config>

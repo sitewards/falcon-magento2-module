@@ -13,7 +13,6 @@ use Magento\Store\Model\StoreManagerInterface;
 class Data extends AbstractHelper
 {
     const RESPONSE_TAGS_REGISTRY = 'response_tags';
-    const FRONTEND_DOMAIN_PATH = 'deity/frontend/domain';
 
     /**
      * Default response tag sent in X-Cache-Tags header in REST
@@ -64,25 +63,6 @@ class Data extends AbstractHelper
     public function getAppHomeUrl()
     {
         return $this->getConfigValue('app_home_url');
-    }
-
-    /**
-     * Replace base url with frontend url
-     *
-     * @param string $url
-     * @param int $storeId
-     * @return string
-     */
-    public function prepareFrontendUrl($url, $storeId = null)
-    {
-        if ($frontendDomain = $this->getConfigValue(self::FRONTEND_DOMAIN_PATH, ScopeInterface::SCOPE_STORE, $storeId)) {
-            $domainPath = $this->getConfigValue(Store::XML_PATH_SECURE_IN_FRONTEND, ScopeInterface::SCOPE_STORE, $storeId) ?
-                Store::XML_PATH_SECURE_BASE_URL : Store::XML_PATH_UNSECURE_BASE_URL;
-            $baseDomain = $this->getConfigValue($domainPath, ScopeInterface::SCOPE_STORE, $storeId);
-            $url = str_replace($baseDomain, $frontendDomain, $url);
-        }
-
-        return $url;
     }
 
     /**

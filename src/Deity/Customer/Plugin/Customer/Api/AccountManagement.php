@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\Customer\Plugin\Customer\Api;
 
-use Deity\MagentoApi\Model\Cart\MergeManagement;
+use Deity\MagentoApi\Model\MergeManagement;
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;

@@ -1,5 +1,7 @@
 <?php
-namespace Deity\MagentoApi\Model\Cart;
+declare(strict_types=1);
+
+namespace Deity\MagentoApi\Model;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
@@ -14,7 +16,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Handle merging guest and customer quote when signing up and signing in
  *
- * @package Deity\MagentoApi\Model\Cart
+ * @package Deity\MagentoApi\Model
  */
 class MergeManagement
 {
@@ -58,7 +60,7 @@ class MergeManagement
      * @throws LocalizedException
      * @throws NoSuchEntityException
      */
-    public function mergeGuestAndCustomerQuotes($guestQuoteId, $username)
+    public function mergeGuestAndCustomerQuotes(string $guestQuoteId, string $username): bool
     {
         $customerCart = $this->getCustomerCart($username);
         if ($customerCart) {
@@ -77,12 +79,12 @@ class MergeManagement
     /**
      * Convert guest quote to customer quote
      *
-     * @param $guestQuoteId
+     * @param string $guestQuoteId
      * @param CustomerInterface $customer
      * @return bool
      * @throws NoSuchEntityException
      */
-    public function convertGuestCart($guestQuoteId, CustomerInterface $customer)
+    public function convertGuestCart(string $guestQuoteId, CustomerInterface $customer): bool
     {
         $guestQuote = $this->getGuestCart($guestQuoteId);
         $guestQuote->assignCustomer($customer);
@@ -95,11 +97,11 @@ class MergeManagement
     /**
      * Get provided guest quote
      *
-     * @param $guestQuoteId
+     * @param string $guestQuoteId
      * @return Quote|CartInterface
      * @throws NoSuchEntityException
      */
-    private function getGuestCart($guestQuoteId)
+    private function getGuestCart(string $guestQuoteId)
     {
         /** @var QuoteIdMask $quoteIdMask */
         $quoteIdMask = $this->quoteIdMaskFactory->create();
@@ -112,10 +114,10 @@ class MergeManagement
     /**
      * Get active logged in customer quote
      *
-     * @param $username
+     * @param string $username
      * @return Quote|CartInterface|null
      */
-    private function getCustomerCart($username)
+    private function getCustomerCart(string $username)
     {
         try {
             $customerCart = null;
