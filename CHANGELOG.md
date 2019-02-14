@@ -8,6 +8,10 @@ Versions marked with a number and date (e.g. v0.1.0 (2018-10-05)) are already re
  - Introduced API tests for customer order API
  - Renamed guest order API from `/V1/guest-carts/:cartId/deity-order` to `/V1/guest-carts/:cartId/place-order`
  - Introduced API tests for guest order API
+ - Renamed customer payment API from `/V1/carts/mine/payment-information` to `/V1/carts/mine/save-payment-information-and-order`
+ - Introduced API tests for customer payment
+ - Renamed guest payment API from `/V1/guest-carts/:cartId/payment-information` to `/V1/guest-carts/:cartId/save-payment-information-and-order`
+ - Introduced API tests for guest payment
  - Fixed the issue with guest order placement
  - Refactored Order Id Mask classes. Introduced interfaces, repository. Introduced API tests.
 ## v2.0.1
