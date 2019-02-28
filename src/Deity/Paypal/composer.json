@@ -1,0 +1,23 @@
+{
+    "name": "deity/falcon-magento-paypal",
+    "description": "Deity Magento Paypal",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "require": {
+        "magento/framework": "*",
+        "magento/module-paypal" : "*",
+        "deity/falcon-magento-paypal-api" : "*",
+        "php": "^7.0"
+    },
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Deity\\Paypal\\": ""
+        }
+    }
+}

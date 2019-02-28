@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- INTERFACE PREFERENCES FOR DI -->
+    <preference for="Deity\PaypalApi\Api\Data\PaypalDataInterface" type="Deity\Paypal\Model\Data\PaypalData" />
+    <preference for="Deity\PaypalApi\Api\PaypalInterface" type="Deity\Paypal\Model\PaypalExpress" />
+    <preference for="Deity\PaypalApi\Api\GuestPaypalInterface" type="Deity\Paypal\Model\GuestPaypalExpress" />
+    <preference for="Deity\Paypal\Model\PaypalExpressProcessorInterface" type="Deity\Paypal\Model\PaypalExpressProcessor" />
+
+</config>
