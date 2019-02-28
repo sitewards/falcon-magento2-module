@@ -2,7 +2,7 @@
     "name": "deity/falcon-magento",
     "description": "Deity Magento API",
     "type": "magento2-module",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "license": [
         "OSL-3.0"
     ],
@@ -20,6 +20,8 @@
             "src/Deity/MagentoApi/registration.php",
             "src/Deity/Menu/registration.php",
             "src/Deity/MenuApi/registration.php",
+            "src/Deity/Paypal/registration.php",
+            "src/Deity/PaypalApi/registration.php",
             "src/Deity/Quote/registration.php",
             "src/Deity/QuoteApi/registration.php",
             "src/Deity/Sales/registration.php",
@@ -42,6 +44,8 @@
             "Deity\\MagentoApi\\": "src/Deity/MagentoApi",
             "Deity\\Menu\\": "src/Deity/Menu",
             "Deity\\MenuApi\\": "src/Deity/MenuApi",
+            "Deity\\Paypal\\": "src/Deity/Paypal",
+            "Deity\\PaypalApi\\": "src/Deity/PaypalApi",
             "Deity\\Quote\\": "src/Deity/Quote",
             "Deity\\QuoteApi\\": "src/Deity/QuoteApi",
             "Deity\\Sales\\": "src/Deity/Sales",
