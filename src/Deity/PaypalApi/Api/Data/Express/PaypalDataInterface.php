@@ -1,18 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\PaypalApi\Api\Data;
+namespace Deity\PaypalApi\Api\Data\Express;
 
 /**
  * Interface PaypalDataInterface
  *
- * @package Deity\PaypalApi\Api\Data
+ * @package Deity\PaypalApi\Api\Data\Express
  */
 interface PaypalDataInterface
 {
     const TOKEN = 'token';
     const URL = 'url';
-    const ERROR = 'error';
 
     /**
      * Get Paypal token
@@ -27,11 +26,4 @@ interface PaypalDataInterface
      * @return string
      */
     public function getUrl(): string;
-
-    /**
-     * Get Paypal error
-     *
-     * @return string
-     */
-    public function getError(): string;
 }

@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Paypal\Model;
+namespace Deity\Paypal\Model\Express;
 
-use Deity\PaypalApi\Api\Data\PaypalDataInterface;
-use Deity\PaypalApi\Api\Data\PaypalDataInterfaceFactory;
+use Deity\Paypal\Model\Express\Redirect\RedirectToFalconProviderInterface;
+use Deity\PaypalApi\Api\Data\Express\PaypalDataInterface;
+use Deity\PaypalApi\Api\Data\Express\PaypalDataInterfaceFactory;
 use Magento\Checkout\Helper\Data;
 use Magento\Checkout\Model\Type\Onepage;
 use Magento\Framework\Exception\LocalizedException;
@@ -14,16 +15,18 @@ use Magento\Paypal\Model\ConfigFactory;
 use Magento\Paypal\Model\Express\Checkout;
 use Magento\Paypal\Model\Express\Checkout\Factory as PaypalCheckoutFactory;
 use Magento\Quote\Api\CartRepositoryInterface;
+use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Model\QuoteIdMaskFactory;
 
 /**
- * Class PaypalExpressProcessor
+ * Class PaypalManagement
  *
+ * @package Deity\Paypal\Model\Express
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @package Deity\Paypal\Model
  */
-class PaypalExpressProcessor implements PaypalExpressProcessorInterface
+class PaypalManagement implements PaypalManagementInterface
 {
+    const PAYPAL_EXPRESS_TOKEN = 'paypal_express_checkout_token';
     /**
      * @var Config
      */
@@ -76,6 +79,11 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
     private $checkoutHelper;
 
     /**
+     * @var RedirectToFalconProviderInterface
+     */
+    private $urlProvider;
+
+    /**
      * Payment constructor.
      * @param UrlInterface $urlBuilder
      * @param Data $checkoutHelper
@@ -83,6 +91,7 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
      * @param CartRepositoryInterface $cartRepository
      * @param Checkout\Factory $checkoutFactory
      * @param PaypalDataInterfaceFactory $paypalDataFactory
+     * @param RedirectToFalconProviderInterface $urlProvider
      * @param ConfigFactory $configFactory
      */
     public function __construct(
@@ -92,8 +101,10 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
         CartRepositoryInterface $cartRepository,
         PaypalCheckoutFactory $checkoutFactory,
         PaypalDataInterfaceFactory $paypalDataFactory,
+        RedirectToFalconProviderInterface $urlProvider,
         ConfigFactory $configFactory
     ) {
+        $this->urlProvider = $urlProvider;
         $this->paypalDataFactory = $paypalDataFactory;
         $this->urlBuilder = $urlBuilder;
         $this->checkoutHelper = $checkoutHelper;
@@ -103,6 +114,20 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
         $this->config = $configFactory->create(
             ['params' => [Config::METHOD_WPP_EXPRESS]]
         );
+    }
+
+    /**
+     * Return Express checkout
+     *
+     * @param string $cartId
+     * @return Checkout
+     * @throws LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getExpressCheckout(string $cartId): Checkout
+    {
+        $this->initQuote($cartId);
+        return $this->getCheckout();
     }
 
     /**
@@ -138,7 +163,6 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
      */
     private function createToken(string $cartId): string
     {
-        $this->quote = $this->cartRepository->getActive($cartId);
         $hasButton = false; // @todo needs to be parametrized. Parameter: button=[1 / 0]
         /** @var Data $checkoutHelper */
         $quoteCheckoutMethod = $this->quote->getCheckoutMethod();
@@ -161,9 +185,12 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
             $this->urlBuilder->getUrl('paypal/express/cancel', ['cart_id' => $cartId]),
             $this->urlBuilder->getUrl('checkout/onepage/success')
         );
+
+        $this->quote->getCustomerIsGuest();
+
         return $this->getCheckout()->start(
-            $this->urlBuilder->getUrl('checkoutExt/payment_paypal_express/return', ['cart_id' => $cartId]),
-            $this->urlBuilder->getUrl('checkoutExt/payment_paypal_express/cancel', ['cart_id' => $cartId]),
+            $this->urlProvider->getPaypalReturnSuccessUrl($this->quote),
+            $this->urlProvider->getPaypalReturnCancelUrl($this->quote),
             $hasButton
         );
     }
@@ -173,26 +200,99 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
      *
      * @param string $cartId
      * @return PaypalDataInterface
+     * @throws LocalizedException
      */
     public function createPaypalData(string $cartId): PaypalDataInterface
     {
-        try {
-            $token = $this->createToken($cartId);
-            $url = $this->getCheckout()->getRedirectUrl();
+        $this->initQuote($cartId);
+        $token = $this->createToken($cartId);
+        $this->setToken($token);
+        $url = $this->getCheckout()->getRedirectUrl();
 
-            $paymentData = $this->paypalDataFactory->create(
-                [
-                    PaypalDataInterface::TOKEN => $token,
-                    PaypalDataInterface::URL => $url,
-                ]
-            );
-        } catch (LocalizedException $e) {
-            $paymentData = $this->paypalDataFactory->create(
-                [
-                    PaypalDataInterface::ERROR => $e->getMessage()
-                ]
+        $paymentData = $this->paypalDataFactory->create(
+            [
+                PaypalDataInterface::TOKEN => $token,
+                PaypalDataInterface::URL => $url,
+            ]
+        );
+
+        return $paymentData;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $setToken
+     * @throws LocalizedException
+     */
+    private function setToken($setToken)
+    {
+        $this->getQuote()->getPayment()->setAdditionalInformation(self::PAYPAL_EXPRESS_TOKEN, $setToken);
+        $this->getQuote()->save();
+    }
+
+    /**
+     * Unset token for given cart
+     *
+     * @param string $cartId
+     * @throws LocalizedException
+     */
+    public function unsetToken(string $cartId): void
+    {
+        $this->initQuote($cartId);
+        // security measure for avoid unsetting token twice
+        if (!$this->getQuote()->getPayment()->getAdditionalInformation(self::PAYPAL_EXPRESS_TOKEN)) {
+            throw new LocalizedException(
+                __('PayPal Express Checkout Token does not exist.')
             );
         }
-        return $paymentData;
+        $this->getQuote()->getPayment()->unsAdditionalInformation(self::PAYPAL_EXPRESS_TOKEN);
+    }
+
+    /**
+     * Validate token for given cart
+     *
+     * @param string $cartId
+     * @param string $token
+     * @return bool
+     * @throws LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function validateToken(string $cartId, string $token): bool
+    {
+        $this->initQuote($cartId);
+        $storedToken = $this->getQuote()->getPayment()->getAdditionalInformation(self::PAYPAL_EXPRESS_TOKEN);
+        if ($storedToken && $storedToken !== $token) {
+            throw new LocalizedException(
+                __('A wrong PayPal Express Checkout Token is specified.')
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Get current quote object
+     *
+     * @return CartInterface
+     * @throws LocalizedException
+     */
+    private function getQuote(): CartInterface
+    {
+        if ($this->quote === null) {
+            throw new LocalizedException(__('Quote object is not initialized'));
+        }
+        return $this->quote;
+    }
+
+    /**
+     * Init quote from given Id
+     *
+     * @param string $cartId
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    private function initQuote(string $cartId): void
+    {
+        $this->quote = $this->cartRepository->getActive($cartId);
     }
 }
