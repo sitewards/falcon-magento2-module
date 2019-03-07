@@ -91,11 +91,21 @@ class CustomerCancel implements CustomerCancelInterface
             $this->paypalManagement->unsetToken($cartId);
             $redirectUrlFailure = $this->redirectToFalconProvider->getFailureUrl($quote);
             $redirectUrlCancel = $this->redirectToFalconProvider->getCancelUrl($quote);
+            $message = 'Order cancel done.';
         } catch (LocalizedException $e) {
-            $this->logger->critical('PayPal Cancel Action: ' . $e->getMessage());
+            $message = 'PayPal Cancel Action: ' . $e->getMessage();
+            $this->logger->critical($message);
             $redirectUrlCancel = $redirectUrlFailure;
         }
 
-        return $this->redirectDataFactory->create([RedirectDataInterface::REDIRECT_FIELD => $redirectUrlCancel]);
+        $redirectParams = [
+            RedirectDataInterface::REDIRECT_FIELD => $redirectUrlCancel,
+            RedirectDataInterface::UENC_FIELD => base64_encode((string)$message),
+            RedirectDataInterface::ORDER_ID_FIELD => '',
+            RedirectDataInterface::REAL_ORDER_ID_FIELD => '',
+
+        ];
+
+        return $this->redirectDataFactory->create($redirectParams);
     }
 }

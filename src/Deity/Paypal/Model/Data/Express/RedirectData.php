@@ -19,12 +19,34 @@ class RedirectData implements RedirectDataInterface
     private $redirectUrl;
 
     /**
-     * RedirectData constructor.
-     * @param string $redirect
+     * @var string
      */
-    public function __construct(string $redirect)
+    private $orderId;
+
+    /**
+     * @var string
+     */
+    private $realOrderId;
+
+    /**
+     * @var string
+     */
+    private $uenc;
+
+    /**
+     * RedirectData constructor.
+     *
+     * @param string $redirectUrl
+     * @param string $uenc
+     * @param string $orderId
+     * @param string $realOrderId
+     */
+    public function __construct(string $redirectUrl, string $uenc, string $orderId = '', string $realOrderId = '')
     {
-        $this->redirectUrl = $redirect;
+        $this->redirectUrl = $redirectUrl;
+        $this->orderId = $orderId;
+        $this->realOrderId = $realOrderId;
+        $this->uenc = $uenc;
     }
 
     /**
@@ -35,5 +57,35 @@ class RedirectData implements RedirectDataInterface
     public function getRedirect(): string
     {
         return $this->redirectUrl;
+    }
+
+    /**
+     * Get order Id
+     *
+     * @return string
+     */
+    public function getOrderId(): string
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * Get Order increment Id
+     *
+     * @return string
+     */
+    public function getRealOrderId(): string
+    {
+        return $this->realOrderId;
+    }
+
+    /**
+     * Get encoded payment message
+     *
+     * @return string
+     */
+    public function getUenc(): string
+    {
+        return $this->uenc;
     }
 }

@@ -17,8 +17,8 @@ interface GuestReturnInterface
      *
      * @param string $cartId
      * @param string $token
-     * @param string $payerId
+     * @param string $PayerId
      * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
      */
-    public function processReturn(string $cartId, string $token, string $payerId): RedirectDataInterface;
+    public function processReturn(string $cartId, string $token, string $PayerId): RedirectDataInterface;
 }

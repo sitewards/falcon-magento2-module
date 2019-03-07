@@ -83,15 +83,16 @@ class CustomerReturn implements CustomerReturnInterface
      *
      * @param string $cartId
      * @param string $token
-     * @param string $payerId
+     * @param string $PayerId
      * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function processReturn(string $cartId, string $token, string $payerId): RedirectDataInterface
+    public function processReturn(string $cartId, string $token, string $PayerId): RedirectDataInterface
     {
         $quote = $this->cartRepository->getActive($cartId);
         $orderId = '';
+        $orderIncrementId = '';
         try {
             /** @var Checkout $checkout */
             $checkout = $this->paypalManagement->getExpressCheckout($cartId);
@@ -111,7 +112,8 @@ class CustomerReturn implements CustomerReturnInterface
 
             $redirectUrl = $this->redirectToFalconProvider->getSuccessUrl($quote);
             $message = __('Your Order got a number: #%1', $checkout->getOrder()->getIncrementId());
-            $orderId = $checkout->getOrder()->getIncrementId();
+            $orderId = $checkout->getOrder()->getId();
+            $orderIncrementId = $checkout->getOrder()->getIncrementId();
         } catch (LocalizedException $e) {
             $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
@@ -122,15 +124,14 @@ class CustomerReturn implements CustomerReturnInterface
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
         }
 
-        $urlParams = [
-            ActionInterface::PARAM_NAME_URL_ENCODED => base64_encode((string)$message),
-            'order_id' => $orderId,
-            'result_redirect' => 1
-        ];
-        $urlParams = http_build_query($urlParams);
-        $sep = (strpos($redirectUrl, '?') === false) ? '?' : '&';
-        $redirectUrl = $redirectUrl . $sep . $urlParams;
+        $redirectParams = [
+            RedirectDataInterface::REDIRECT_FIELD => $redirectUrl,
+            RedirectDataInterface::UENC_FIELD => base64_encode((string)$message),
+            RedirectDataInterface::ORDER_ID_FIELD => $orderId,
+            RedirectDataInterface::REAL_ORDER_ID_FIELD => $orderIncrementId,
 
-        return $this->redirectDataFactory->create([RedirectDataInterface::REDIRECT_FIELD => $redirectUrl]);
+        ];
+
+        return $this->redirectDataFactory->create($redirectParams);
     }
 }
