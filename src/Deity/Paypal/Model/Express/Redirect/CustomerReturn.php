@@ -83,12 +83,12 @@ class CustomerReturn implements CustomerReturnInterface
      *
      * @param string $cartId
      * @param string $token
-     * @param string $PayerId
+     * @param string $PayerID
      * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function processReturn(string $cartId, string $token, string $PayerId): RedirectDataInterface
+    public function processReturn(string $cartId, string $token, string $PayerID): RedirectDataInterface
     {
         $quote = $this->cartRepository->getActive($cartId);
         $orderId = '';
