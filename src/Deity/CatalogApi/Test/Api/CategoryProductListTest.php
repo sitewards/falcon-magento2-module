@@ -185,7 +185,6 @@ class CategoryProductListTest extends WebapiAbstract
      */
     public function testGetListFilterReturnFields()
     {
-
         /** @var $attribute \Magento\Catalog\Model\ResourceModel\Eav\Attribute */
         $attribute = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
             \Magento\Catalog\Model\ResourceModel\Eav\Attribute::class
@@ -225,5 +224,103 @@ class CategoryProductListTest extends WebapiAbstract
         ];
         $response = $this->_webApiCall($serviceInfo);
         $this->assertEquals(1, $response['total_count'], 'Only one product is expected');
+    }
+
+    /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_filters.php
+     */
+    public function testSelectedFilterFlagIsOn()
+    {
+        /** @var $attribute \Magento\Catalog\Model\ResourceModel\Eav\Attribute */
+        $attribute = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
+            \Magento\Catalog\Model\ResourceModel\Eav\Attribute::class
+        );
+        $attribute->loadByCode('catalog_product', 'filterable_attribute');
+        /** @var \Magento\Eav\Api\Data\AttributeOptionInterface[]  $options */
+        $options = $attribute->getOptions();
+        /** @var \Magento\Eav\Api\Data\AttributeOptionInterface $testOption */
+        //skip 0 one, that's default
+        /** @var \Magento\Eav\Model\Entity\Attribute\Option $testOption */
+        $testOption = $options[1];
+        $searchCriteria = [
+            'searchCriteria' => [
+                'filter_groups' => [
+                    [
+                        'filters' => [
+                            [
+                                'field' => 'filterable_attribute',
+                                'value' => $testOption->getValue(),
+                                'condition_type' => 'eq',
+                            ],
+                        ],
+                    ],
+                ],
+                'current_page' => 1,
+                'page_size' => 2,
+            ],
+        ];
+
+        $categoryId = 3;
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(1, count($response['filters']), 'At least one facet expected');
+        foreach ($response['filters'] as $filter) {
+            if ($filter['code'] == 'filterable_attribute') {
+                foreach ($filter['options'] as $option) {
+                    if ($option['value'] === $testOption->getValue()) {
+                        $this->assertEquals(true, $option['is_selected'], 'Filter option should be marked selected');
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_filters.php
+     */
+    public function testSelectedFilterFlagIsOff()
+    {
+        /** @var $attribute \Magento\Catalog\Model\ResourceModel\Eav\Attribute */
+        $attribute = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
+            \Magento\Catalog\Model\ResourceModel\Eav\Attribute::class
+        );
+        $attribute->loadByCode('catalog_product', 'filterable_attribute');
+        /** @var \Magento\Eav\Api\Data\AttributeOptionInterface[]  $options */
+        $options = $attribute->getOptions();
+        /** @var \Magento\Eav\Api\Data\AttributeOptionInterface $testOption */
+        //skip 0 one, that's default
+        /** @var \Magento\Eav\Model\Entity\Attribute\Option $testOption */
+        $testOption = $options[1];
+        $categoryId = 3;
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+        $response = $this->_webApiCall($serviceInfo);
+
+        // Category filter + price filter + custom attribute filter
+        $this->assertEquals(3, count($response['filters']), 'Three filter facets expected');
+        foreach ($response['filters'] as $filter) {
+            if ($filter['code'] == 'filterable_attribute') {
+                foreach ($filter['options'] as $option) {
+                    if ($option['value'] === $testOption->getValue()) {
+                        $this->assertEquals(
+                            false,
+                            $option['is_selected'],
+                            'Filter option should NOT be marked selected'
+                        );
+                    }
+                }
+            }
+        }
     }
 }

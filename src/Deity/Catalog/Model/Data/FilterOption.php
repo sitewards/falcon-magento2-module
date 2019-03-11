@@ -30,14 +30,21 @@ class FilterOption implements FilterOptionInterface
     private $count;
 
     /**
+     * @var bool
+     */
+    private $isSelected;
+
+    /**
      * FilterOption constructor.
      * @param string $label
      * @param string $value
      * @param int $count
+     * @param bool $isSelected
      */
-    public function __construct(string $label, string $value, int $count)
+    public function __construct(string $label, string $value, int $count, bool $isSelected = false)
     {
         $this->label = $label;
+        $this->isSelected = $isSelected;
         $this->value = $value;
         $this->count = $count;
     }
@@ -64,5 +71,13 @@ class FilterOption implements FilterOptionInterface
     public function getCount(): int
     {
         return $this->count;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIsSelected(): bool
+    {
+        return $this->isSelected;
     }
 }
