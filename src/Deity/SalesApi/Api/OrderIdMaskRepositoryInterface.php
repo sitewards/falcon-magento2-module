@@ -28,4 +28,12 @@ interface OrderIdMaskRepositoryInterface
      * @return OrderIdMaskInterface
      */
     public function get(int $orderId): OrderIdMaskInterface;
+
+    /**
+     * Get order mask object by given mask id
+     *
+     * @param string $maskedId
+     * @return OrderIdMaskInterface
+     */
+    public function getByMaskedOrderId(string $maskedId): OrderIdMaskInterface;
 }

@@ -4,6 +4,7 @@
         <sequence>
             <module name="Magento_Paypal"/>
             <module name="Deity_PaypalApi"/>
+            <module name="Deity_SalesApi"/>
         </sequence>
     </module>
 </config>
