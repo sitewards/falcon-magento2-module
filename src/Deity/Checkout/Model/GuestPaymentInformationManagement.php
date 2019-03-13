@@ -6,6 +6,7 @@ namespace Deity\Checkout\Model;
 use Deity\CheckoutApi\Api\GuestPaymentInformationManagementInterface;
 use Deity\QuoteApi\Api\Data\OrderResponseInterface;
 use Deity\QuoteApi\Api\Data\OrderResponseInterfaceFactory;
+use Deity\SalesApi\Api\OrderIdMaskRepositoryInterface;
 use Magento\Checkout\Api\GuestPaymentInformationManagementInterface as MagentoPaymentInformationManagementInterface;
 use Magento\Checkout\Model\Session;
 use Magento\Quote\Api\Data\AddressInterface;
@@ -34,16 +35,24 @@ class GuestPaymentInformationManagement implements GuestPaymentInformationManage
     private $checkoutSession;
 
     /**
+     * @var OrderIdMaskRepositoryInterface
+     */
+    private $orderIdMaskRepository;
+
+    /**
      * PaymentInformationManagement constructor.
      * @param OrderResponseInterfaceFactory $orderResponseFactory
      * @param MagentoPaymentInformationManagementInterface $paymentInformationManagement
+     * @param OrderIdMaskRepositoryInterface $orderIdMaskRepository
      * @param Session $checkoutSession
      */
     public function __construct(
         OrderResponseInterfaceFactory $orderResponseFactory,
         MagentoPaymentInformationManagementInterface $paymentInformationManagement,
+        OrderIdMaskRepositoryInterface $orderIdMaskRepository,
         Session $checkoutSession
     ) {
+        $this->orderIdMaskRepository = $orderIdMaskRepository;
         $this->orderResponseFactory = $orderResponseFactory;
         $this->paymentInformationManagement = $paymentInformationManagement;
         $this->checkoutSession = $checkoutSession;
@@ -73,8 +82,9 @@ class GuestPaymentInformationManagement implements GuestPaymentInformationManage
         );
         $orderRealId = $this->checkoutSession->getLastRealOrderId();
 
+        $orderIdMask = $this->orderIdMaskRepository->get((int)$orderId);
         return $this->orderResponseFactory->create([
-            OrderResponseInterface::ORDER_ID => (string)$orderId,
+            OrderResponseInterface::ORDER_ID => (string)$orderIdMask->getMaskedId(),
             OrderResponseInterface::ORDER_REAL_ID => (string)$orderRealId
         ]);
     }

@@ -10,6 +10,9 @@ use Deity\CatalogApi\Api\Data\FilterOptionInterfaceFactory;
 use Magento\Catalog\Model\Layer;
 use Magento\Catalog\Model\Layer\Filter\AbstractFilter;
 use Magento\Catalog\Model\Layer\Filter\Item;
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\State\InitException;
 
 /**
  * Class ProductFilterProvider
@@ -35,6 +38,11 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
     private $filterOptionFactory;
 
     /**
+     * @var string[]
+     */
+    private $filterValues = [];
+
+    /**
      * ProductFilterProvider constructor.
      * @param Layer\FilterList $filterList
      * @param FilterInterfaceFactory $filterFactory
@@ -53,18 +61,20 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
     /**
      * @inheritdoc
      */
-    public function getFilterList(Layer $layer): array
+    public function getFilterList(Layer $layer, ?SearchCriteriaInterface $searchCriteria): array
     {
         if (!$layer->getCurrentCategory()->getIsAnchor()) {
             //if category is not marked is_anchor, do not return filter data
             return [];
         }
+
+        $this->presetFilterValues($searchCriteria);
         
         /** @var AbstractFilter[] $magentoFilters */
         $magentoFilters = $this->filterList->getFilters($layer);
         $resultFilters = [];
         foreach ($magentoFilters as $magentoFilter) {
-            if (!$magentoFilter->getItemsCount()) {
+            if (!$magentoFilter->getItemsCount() && !$this->isFilterSelected($magentoFilter)) {
                 continue;
             }
             $filterInitData = [];
@@ -80,16 +90,16 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
             }
             /** @var FilterInterface $filterObject */
             $filterObject = $this->filterFactory->create($filterInitData);
+            $this->processSelectedOptionsForFilter($magentoFilter, $filterObject);
             $magentoOptions = $magentoFilter->getItems();
-
             /** @var Item $magentoOption */
             foreach ($magentoOptions as $magentoOption) {
                 /** @var FilterOptionInterface $filterOption */
                 $filterOption =$this->filterOptionFactory->create(
                     [
-                        'label' => (string)$magentoOption->getData('label'),
-                        'value' => $magentoOption->getValueString(),
-                        'count' => (int)$magentoOption->getData('count')
+                        FilterOptionInterface::LABEL => (string)$magentoOption->getData('label'),
+                        FilterOptionInterface::VALUE => $magentoOption->getValueString(),
+                        FilterOptionInterface::COUNT => (int)$magentoOption->getData('count')
                     ]
                 );
                 $filterObject->addOption($filterOption);
@@ -98,5 +108,75 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
             $resultFilters[] = $filterObject;
         }
         return $resultFilters;
+    }
+
+    /**
+     * Process selected items for selected filter
+     *
+     * @param AbstractFilter $magentoFilter
+     * @param FilterInterface $filterObject
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    private function processSelectedOptionsForFilter(AbstractFilter $magentoFilter, FilterInterface $filterObject)
+    {
+        if ($this->isFilterSelected($magentoFilter)) {
+            foreach ($this->filterValues[$filterObject->getCode()] as $filterValue) {
+                if ($magentoFilter->getRequestVar() == 'cat') {
+                    $layer = $magentoFilter->getLayer();
+                    $categoryObject = $layer->getCurrentCategory()->getChildrenCategories()->getItemById($filterValue);
+                    if ($categoryObject === null) {
+                        throw new InitException(__('Given category filter is not available'));
+                    }
+                    $filterLabel = $categoryObject->getName();
+                } else {
+                    $filterLabel = $magentoFilter
+                        ->getAttributeModel()
+                        ->getSource()
+                        ->getOptionText($filterValue);
+                }
+                /** @var FilterOptionInterface $filterOption */
+                $filterOption =$this->filterOptionFactory->create(
+                    [
+                        FilterOptionInterface::LABEL => (string)$filterLabel,
+                        FilterOptionInterface::VALUE => (string)$filterValue,
+                        FilterOptionInterface::COUNT => 0,
+                        FilterOptionInterface::IS_SELECTED => true
+                    ]
+                );
+                $filterObject->addOption($filterOption);
+            }
+        }
+    }
+
+    /**
+     * Check if filter values are selected
+     *
+     * @param AbstractFilter $magentoFilter
+     * @return bool
+     */
+    private function isFilterSelected(AbstractFilter $magentoFilter): bool
+    {
+        return isset($this->filterValues[$magentoFilter->getRequestVar()]);
+    }
+
+    /**
+     * Parse Filter Selected values
+     *
+     * @param SearchCriteriaInterface|null $searchCriteria
+     * @return $this
+     */
+    private function presetFilterValues(?SearchCriteriaInterface $searchCriteria)
+    {
+        if ($searchCriteria === null) {
+            return $this;
+        }
+
+        foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
+            foreach ($filterGroup->getFilters() as $filter) {
+                $this->filterValues[$filter->getField()][] = $filter->getValue();
+            }
+        }
+
+        return $this;
     }
 }

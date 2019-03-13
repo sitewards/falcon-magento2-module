@@ -1,11 +1,12 @@
 {
-    "name": "deity/falcon-magento-sales-api",
-    "description": "Deity Magento Sales Api",
+    "name": "deity/falcon-magento-paypal",
+    "description": "Deity Magento Paypal",
     "type": "magento2-module",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "require": {
         "magento/framework": "*",
-        "magento/module-sales" : "*",
+        "magento/module-paypal" : "*",
+        "deity/falcon-magento-paypal-api" : "*",
         "php": "^7.0"
     },
     "license": [
@@ -16,7 +17,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Deity\\SalesApi\\": ""
+            "Deity\\Paypal\\": ""
         }
     }
 }

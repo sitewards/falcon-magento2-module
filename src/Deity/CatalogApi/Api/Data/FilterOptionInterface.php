@@ -13,6 +13,7 @@ interface FilterOptionInterface
     const LABEL = 'label';
     const VALUE = 'value';
     const COUNT = 'count';
+    const IS_SELECTED = 'isSelected';
 
     /**
      * Get label
@@ -34,4 +35,11 @@ interface FilterOptionInterface
      * @return int
      */
     public function getCount(): int;
+
+    /**
+     * Get selected flag
+     *
+     * @return bool
+     */
+    public function getIsSelected(): bool;
 }

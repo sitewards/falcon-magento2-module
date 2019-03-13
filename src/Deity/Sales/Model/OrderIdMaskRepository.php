@@ -90,4 +90,19 @@ class OrderIdMaskRepository implements OrderIdMaskRepositoryInterface
 
         return $orderIdMask;
     }
+
+    /**
+     * Get order mask object by given mask id
+     *
+     * @param string $maskedId
+     * @return OrderIdMaskInterface
+     */
+    public function getByMaskedOrderId(string $maskedId): OrderIdMaskInterface
+    {
+        /** @var OrderIdMaskInterface $orderIdMask */
+        $orderIdMask = $this->orderIdMaskFactory->create();
+        $this->orderIdMaskResource->load($orderIdMask, $maskedId, 'masked_id');
+
+        return $orderIdMask;
+    }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- INTERFACE PREFERENCES FOR EXPRESS -->
+    <preference for="Deity\PaypalApi\Api\Data\Express\PaypalDataInterface" type="Deity\Paypal\Model\Data\Express\PaypalData" />
+    <preference for="Deity\PaypalApi\Api\Express\TokenProviderInterface" type="Deity\Paypal\Model\Express\TokenProvider" />
+    <preference for="Deity\PaypalApi\Api\Express\GuestTokenProviderInterface" type="Deity\Paypal\Model\Express\GuestTokenProvider" />
+    <preference for="Deity\Paypal\Model\Express\PaypalManagementInterface" type="Deity\Paypal\Model\Express\PaypalManagement" />
+    <preference for="Deity\Paypal\Model\Express\Redirect\RedirectToFalconProviderInterface" type="Deity\Paypal\Model\Express\Redirect\RedirectToFalconProvider" />
+    <preference for="Deity\PaypalApi\Api\Express\GuestReturnInterface" type="Deity\Paypal\Model\Express\Redirect\GuestReturn" />
+    <preference for="Deity\PaypalApi\Api\Express\CustomerReturnInterface" type="Deity\Paypal\Model\Express\Redirect\CustomerReturn" />
+    <preference for="Deity\PaypalApi\Api\Data\Express\RedirectDataInterface" type="Deity\Paypal\Model\Data\Express\RedirectData" />
+    <preference for="Deity\PaypalApi\Api\Express\CustomerCancelInterface" type="Deity\Paypal\Model\Express\Redirect\CustomerCancel" />
+    <preference for="Deity\PaypalApi\Api\Express\GuestCancelInterface" type="Deity\Paypal\Model\Express\Redirect\GuestCancel" />
+
+</config>

@@ -4,6 +4,7 @@
         <sequence>
             <module name="Magento_Checkout"/>
             <module name="Deity_CheckoutApi"/>
+            <module name="Deity_SalesApi"/>
         </sequence>
     </module>
 </config>

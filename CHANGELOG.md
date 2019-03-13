@@ -1,7 +1,13 @@
 **Note:** This is a cumulative changelog that outlines all of the changes to all magento modules in Deity [src/Deity](./src/Deity) namespace.
 
 Versions marked with a number and date (e.g. v0.1.0 (2018-10-05)) are already released and available via packagist. Versions without a date are not released yet.
-## v3.0.0 
+## v3.1.0 (2019-03-13)
+ - Introduced Paypal REST API
+ - Updated guest ORDER REST API to return `masked_order_id` instead of `order_id`
+ - Added `is_selected` field to filter options.
+ - Selected filter are also returned with available filter options.
+ - Fixed the issue with category filter.
+## v3.0.0 (2019-02-14)
  - Removed `V1/contact` API
  - Removed `V1/info` API
  - Renamed customer order API from `/V1/carts/mine/deity-order` to `/V1/carts/mine/place-order`

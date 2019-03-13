@@ -6,6 +6,7 @@ namespace Deity\Quote\Model;
 use Deity\QuoteApi\Api\Data\OrderResponseInterface;
 use Deity\QuoteApi\Api\Data\OrderResponseInterfaceFactory;
 use Deity\QuoteApi\Api\GuestCartManagementInterface;
+use Deity\SalesApi\Api\OrderIdMaskRepositoryInterface;
 use Magento\Checkout\Model\Session;
 use Magento\Quote\Api\Data\PaymentInterface;
 use Magento\Quote\Api\GuestCartManagementInterface as MagentoGuestCartManagementInterface;
@@ -34,16 +35,24 @@ class GuestCartManagement implements GuestCartManagementInterface
     private $orderResponseFactory;
 
     /**
+     * @var OrderIdMaskRepositoryInterface
+     */
+    private $orderIdMaskRepository;
+
+    /**
      * CartManagement constructor.
      * @param MagentoGuestCartManagementInterface $quoteManagement
      * @param Session $checkoutSession
+     * @param OrderIdMaskRepositoryInterface $orderIdMaskRepository
      * @param OrderResponseInterfaceFactory $orderResponseFactory
      */
     public function __construct(
         MagentoGuestCartManagementInterface $quoteManagement,
         Session $checkoutSession,
+        OrderIdMaskRepositoryInterface $orderIdMaskRepository,
         OrderResponseInterfaceFactory $orderResponseFactory
     ) {
+        $this->orderIdMaskRepository = $orderIdMaskRepository;
         $this->orderResponseFactory = $orderResponseFactory;
         $this->checkoutSession = $checkoutSession;
         $this->guestQuoteManagement = $quoteManagement;
@@ -61,9 +70,9 @@ class GuestCartManagement implements GuestCartManagementInterface
     {
         $orderId = $this->guestQuoteManagement->placeOrder($cartId, $paymentMethod);
         $orderRealId = $this->checkoutSession->getLastRealOrderId();
-
+        $orderIdMask = $this->orderIdMaskRepository->get((int)$orderId);
         return $this->orderResponseFactory->create([
-            OrderResponseInterface::ORDER_ID => (string)$orderId,
+            OrderResponseInterface::ORDER_ID => (string)$orderIdMask->getMaskedId(),
             OrderResponseInterface::ORDER_REAL_ID => (string)$orderRealId
         ]);
     }

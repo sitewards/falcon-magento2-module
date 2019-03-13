@@ -113,7 +113,7 @@ class CategoryProductList implements CategoryProductListInterface
         $productSearchResult = $this->productSearchResultFactory->create();
 
         $productSearchResult->setFilters(
-            $this->filterProvider->getFilterList($this->catalogLayer)
+            $this->filterProvider->getFilterList($this->catalogLayer, $searchCriteria)
         );
         $productSearchResult->setItems($responseProducts);
 

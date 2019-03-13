@@ -34,6 +34,13 @@
             </argument>
         </arguments>
     </virtualType>
+    <type name="Deity\Catalog\Model\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="cat" xsi:type="object">Magento\Catalog\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor\ProductCategoryFilter</item>
+            </argument>
+        </arguments>
+    </type>
     <type name="Deity\Catalog\Model\CategoryProductList">
         <arguments>
             <argument name="collectionProcessor" xsi:type="object">Deity\Catalog\Model\Api\SearchCriteria\ProductCollectionProcessor</argument>
