@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\CustomerApi\Test\Api;
 
+use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Model\CustomerRegistry;
 use Magento\Integration\Model\Oauth\Token as TokenModel;
@@ -17,9 +18,9 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class NewsletterTest extends WebapiAbstract
 {
-    const RESOURCE_PATH = '/V1/customers/me/newsletter';
+    private const RESOURCE_PATH = '/V1/falcon/customers/me/newsletter';
 
-    const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
+    private const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
 
     /**
      * @var Subscriber
@@ -30,11 +31,6 @@ class NewsletterTest extends WebapiAbstract
      * @var CustomerRepositoryInterface
      */
     private $customerRepository;
-
-    /**
-     * @var AccountManagementInterface
-     */
-    private $customerAccountManagement;
 
     /**
      * @var CustomerRegistry

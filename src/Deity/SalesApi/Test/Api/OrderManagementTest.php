@@ -19,9 +19,9 @@ class OrderManagementTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH_MY_ORDERS = '/V1/orders/mine';
+    private const RESOURCE_PATH_MY_ORDERS = '/V1/falcon/orders/mine';
 
-    const RESOURCE_PATH_ORDER_INFO = '/V1/orders/:orderId/order-info';
+    private const RESOURCE_PATH_ORDER_INFO = '/V1/falcon/orders/:orderId/order-info';
 
     /**
      * @var ObjectManagerInterface

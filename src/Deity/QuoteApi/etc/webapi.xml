@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/carts/mine/place-order" method="PUT">
+    <route url="/V1/falcon/carts/mine/place-order" method="PUT">
         <service class="Deity\QuoteApi\Api\CartManagementInterface" method="placeOrder"/>
         <resources>
             <resource ref="self" />
@@ -9,7 +9,7 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
-    <route url="/V1/guest-carts/:cartId/place-order" method="PUT">
+    <route url="/V1/falcon/guest-carts/:cartId/place-order" method="PUT">
         <service class="Deity\QuoteApi\Api\GuestCartManagementInterface" method="placeOrder"/>
         <resources>
             <resource ref="anonymous" />

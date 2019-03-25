@@ -15,7 +15,7 @@ class GetUrlRewriteTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/url';
+    private const RESOURCE_PATH = '/V1/falcon/urls/:url';
 
     /**
      * @param $existingUrl
@@ -25,7 +25,7 @@ class GetUrlRewriteTest extends WebapiAbstract
     {
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => self::RESOURCE_PATH . "?url=" . $existingUrl,
+                'resourcePath' => str_replace(':url', $existingUrl, self::RESOURCE_PATH),
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
             ]
         ];

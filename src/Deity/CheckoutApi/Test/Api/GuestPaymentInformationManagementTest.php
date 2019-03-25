@@ -7,6 +7,7 @@ use Deity\SalesApi\Api\OrderIdMaskRepositoryInterface;
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Framework\App\Config;
+use Magento\Framework\ObjectManagerInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartSearchResultsInterface;
 use Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface;
@@ -23,7 +24,7 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/guest-carts/:cartId/save-payment-information-and-order';
+    private const RESOURCE_PATH = '/V1/falcon/guest-carts/:cartId/save-payment-information-and-order';
 
     /**
      * @var ObjectManagerInterface

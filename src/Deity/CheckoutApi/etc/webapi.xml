@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/carts/mine/save-payment-information-and-order" method="POST">
+    <route url="/V1/falcon/carts/mine/save-payment-information-and-order" method="POST">
         <service class="Deity\CheckoutApi\Api\PaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
         <resources>
             <resource ref="self" />
@@ -9,7 +9,7 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
-    <route url="/V1/guest-carts/:cartId/save-payment-information-and-order" method="POST">
+    <route url="/V1/falcon/guest-carts/:cartId/save-payment-information-and-order" method="POST">
         <service class="\Deity\CheckoutApi\Api\GuestPaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
         <resources>
             <resource ref="anonymous" />

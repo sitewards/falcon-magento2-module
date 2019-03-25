@@ -11,13 +11,16 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
  * Class PasswordResetTest
+ *
  * @package Deity\CustomerApi\Test\Api
  */
 class PasswordResetTest extends WebapiAbstract
 {
-    const RESOURCE_PATH = '/V1/customers';
+    private const RESOURCE_PATH = '/V1/falcon/customers';
 
-    const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
+    private const MAGENTO_CUSTOMER_REST_RESOURCE = '/V1/customers';
+
+    private const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
 
     /**
      * @var CustomerHelper
@@ -74,11 +77,11 @@ class PasswordResetTest extends WebapiAbstract
      */
     public function tearDown()
     {
-        if (!empty($this->currentCustomerId) && is_array($this->currentCustomerId)) {
+        if (!empty($this->currentCustomeerId) && is_array($this->currentCustomerId)) {
             foreach ($this->currentCustomerId as $customerId) {
                 $serviceInfo = [
                     'rest' => [
-                        'resourcePath' => self::RESOURCE_PATH . '/' . $customerId,
+                        'resourcePath' => self::MAGENTO_CUSTOMER_REST_RESOURCE . '/' . $customerId,
                         'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_DELETE,
                     ]
                 ];
@@ -113,11 +116,13 @@ class PasswordResetTest extends WebapiAbstract
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_PUT,
             ],
         ];
+
         $requestData = [
             'email' => $customerData[Customer::EMAIL],
             'resetToken' => $resetToken,
             'newPassword' => $password
         ];
+
         $response = $this->_webApiCall($serviceInfo, $requestData);
         $this->assertTrue($response);
 

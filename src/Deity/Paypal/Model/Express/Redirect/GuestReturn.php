@@ -147,11 +147,11 @@ class GuestReturn implements GuestReturnInterface
             $orderId = $orderIdMasked->getMaskedId();
             $orderIncrementId = $checkout->getOrder()->getIncrementId();
         } catch (LocalizedException $e) {
-            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $this->logger->critical('PayPal guest return action: ' . $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
             $message = __('Reason: %1', $e->getMessage());
         } catch (\Exception $e) {
-            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $this->logger->critical('PayPal guest return action: ' . $e->getMessage());
             $message = __('Reason: %1', $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
         }

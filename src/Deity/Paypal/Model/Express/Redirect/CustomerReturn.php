@@ -115,11 +115,11 @@ class CustomerReturn implements CustomerReturnInterface
             $orderId = $checkout->getOrder()->getId();
             $orderIncrementId = $checkout->getOrder()->getIncrementId();
         } catch (LocalizedException $e) {
-            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $this->logger->critical('PayPal customer return action: ' . $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
             $message = __('Reason: %1', $e->getMessage());
         } catch (\Exception $e) {
-            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $this->logger->critical('PayPal customer return action: ' . $e->getMessage());
             $message = __('Reason: %1', $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
         }

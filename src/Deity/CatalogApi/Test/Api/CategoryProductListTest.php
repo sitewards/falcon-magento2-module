@@ -11,7 +11,7 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class CategoryProductListTest extends WebapiAbstract
 {
-    const RESOURCE_PATH = '/V1/categories/:categoryId/products';
+    private const RESOURCE_PATH = '/V1/falcon/categories/:categoryId/products';
 
     /**
      * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_children.php
