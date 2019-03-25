@@ -6,6 +6,7 @@ namespace Deity\Menu\Model;
 use Deity\MenuApi\Api\Data\MenuInterface;
 use Deity\MenuApi\Api\Data\MenuInterfaceFactory;
 use Deity\MenuApi\Api\GetMenuInterface;
+use Deity\MenuApi\Model\ConvertCategoryToMenuInterface;
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection;
 use Magento\Catalog\Model\ResourceModel\Category\StateDependentCollectionFactory;
@@ -21,10 +22,6 @@ use Magento\Store\Model\StoreManagerInterface;
  */
 class GetMenu implements GetMenuInterface
 {
-    /**
-     * @var MenuInterfaceFactory
-     */
-    private $menuFactory;
 
     /**
      * @var StoreManagerInterface
@@ -42,20 +39,25 @@ class GetMenu implements GetMenuInterface
     private $collectionFactory;
 
     /**
+     * @var ConvertCategoryToMenuInterface
+     */
+    private $convertCategoryToMenu;
+
+    /**
      * GetMenu constructor.
-     * @param MenuInterfaceFactory $menuFactory
      * @param StoreManagerInterface $storeManager
+     * @param ConvertCategoryToMenuInterface $convertCategoryToMenu
      * @param ScopeConfigInterface $scopeConfig
      * @param StateDependentCollectionFactory $collectionFactory
      */
     public function __construct(
-        MenuInterfaceFactory $menuFactory,
         StoreManagerInterface $storeManager,
+        ConvertCategoryToMenuInterface $convertCategoryToMenu,
         ScopeConfigInterface $scopeConfig,
         StateDependentCollectionFactory $collectionFactory
     ) {
-        $this->menuFactory = $menuFactory;
         $this->storeManager = $storeManager;
+        $this->convertCategoryToMenu = $convertCategoryToMenu;
         $this->scopeConfig = $scopeConfig;
         $this->collectionFactory = $collectionFactory;
     }
@@ -74,6 +76,10 @@ class GetMenu implements GetMenuInterface
             $menuStack[$category->getParentId()][] = $category;
         }
 
+        if (empty($menuStack)) {
+            return [];
+        }
+
         return $this->buildTree($menuStack, $rootId);
     }
 
@@ -89,7 +95,7 @@ class GetMenu implements GetMenuInterface
         $resultStack = [];
         foreach ($menuStack[$rootId] as $key => $category) {
             $id = (int)$category->getId();
-            $menuObject = $this->convertCategoryToMenuItem($category);
+            $menuObject = $this->convertCategoryToMenu->execute($category);
             if (isset($menuStack[$id])) {
                 $menuObject->setChildren($this->buildTree($menuStack, $id));
             }
@@ -97,19 +103,6 @@ class GetMenu implements GetMenuInterface
         }
 
         return $resultStack;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function convertCategoryToMenuItem(Category $category): MenuInterface
-    {
-        /** @var MenuInterface $menuItem */
-        $menuItem = $this->menuFactory->create();
-        $menuItem->setId($category->getId());
-        $menuItem->setUrlPath($category->getRequestPath());
-        $menuItem->setName($category->getName());
-        return $menuItem;
     }
 
     /**

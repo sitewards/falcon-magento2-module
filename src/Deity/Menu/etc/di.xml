@@ -2,4 +2,5 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Deity\MenuApi\Api\Data\MenuInterface" type="Deity\Menu\Model\Data\Menu" />
     <preference for="Deity\MenuApi\Api\GetMenuInterface" type="Deity\Menu\Model\GetMenu" />
+    <preference for="Deity\MenuApi\Model\ConvertCategoryToMenuInterface" type="Deity\Menu\Model\ConvertCategoryToMenu" />
 </config>
