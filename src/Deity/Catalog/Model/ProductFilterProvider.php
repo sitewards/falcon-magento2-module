@@ -102,7 +102,7 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
                         FilterOptionInterface::IS_SELECTED =>
                             $this->getIsSelectedFlagForFilterOption(
                                 $magentoFilter,
-                                $magentoOption->getValueString()
+                                (string)$magentoOption->getValueString()
                             )
                     ]
                 );
