@@ -7,12 +7,15 @@ use Deity\MenuApi\Api\Data\MenuInterface;
 use Deity\MenuApi\Api\Data\MenuInterfaceFactory;
 use Deity\MenuApi\Api\GetMenuInterface;
 use Deity\MenuApi\Model\ConvertCategoryToMenuInterface;
+use Deity\MenuApi\Model\MenuValidatorInterface;
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection;
 use Magento\Catalog\Model\ResourceModel\Category\StateDependentCollectionFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Validation\ValidationException;
+use Magento\Framework\Validation\ValidationResultFactory;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
@@ -44,19 +47,40 @@ class GetMenu implements GetMenuInterface
     private $convertCategoryToMenu;
 
     /**
+     * @var MenuValidatorInterface
+     */
+    private $menuValidator;
+
+    /**
+     * @var ValidationResultFactory
+     */
+    private $validationResultFactory;
+
+    /**
+     * @var array
+     */
+    private $errors = [];
+
+    /**
      * GetMenu constructor.
      * @param StoreManagerInterface $storeManager
      * @param ConvertCategoryToMenuInterface $convertCategoryToMenu
      * @param ScopeConfigInterface $scopeConfig
+     * @param MenuValidatorInterface $menuValidator
      * @param StateDependentCollectionFactory $collectionFactory
+     * @param ValidationResultFactory $validationResultFactory
      */
     public function __construct(
         StoreManagerInterface $storeManager,
         ConvertCategoryToMenuInterface $convertCategoryToMenu,
         ScopeConfigInterface $scopeConfig,
-        StateDependentCollectionFactory $collectionFactory
+        MenuValidatorInterface $menuValidator,
+        StateDependentCollectionFactory $collectionFactory,
+        ValidationResultFactory $validationResultFactory
     ) {
+        $this->validationResultFactory = $validationResultFactory;
         $this->storeManager = $storeManager;
+        $this->menuValidator = $menuValidator;
         $this->convertCategoryToMenu = $convertCategoryToMenu;
         $this->scopeConfig = $scopeConfig;
         $this->collectionFactory = $collectionFactory;
@@ -64,6 +88,10 @@ class GetMenu implements GetMenuInterface
 
     /**
      * @inheritdoc
+     * @return array
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
+     * @throws ValidationException
      */
     public function execute(): array
     {
@@ -80,7 +108,16 @@ class GetMenu implements GetMenuInterface
             return [];
         }
 
-        return $this->buildTree($menuStack, $rootId);
+        $menuTree = $this->buildTree($menuStack, $rootId);
+        if (!empty($this->errors)) {
+            throw new ValidationException(
+                __('Data validation failed. Please check source data.'),
+                null,
+                0,
+                $this->validationResultFactory->create(['errors' => $this->errors])
+            );
+        }
+        return $menuTree;
     }
 
     /**
@@ -89,6 +126,7 @@ class GetMenu implements GetMenuInterface
      * @param array $menuStack
      * @param int $rootId
      * @return \Deity\MenuApi\Api\Data\MenuInterface[]
+     * @throws ValidationException
      */
     private function buildTree(array $menuStack, int $rootId): array
     {
@@ -96,10 +134,17 @@ class GetMenu implements GetMenuInterface
         foreach ($menuStack[$rootId] as $key => $category) {
             $id = (int)$category->getId();
             $menuObject = $this->convertCategoryToMenu->execute($category);
+
             if (isset($menuStack[$id])) {
                 $menuObject->setChildren($this->buildTree($menuStack, $id));
             }
             $resultStack[$key] = $menuObject;
+
+            $validationResult = $this->menuValidator->validate($menuObject);
+
+            if (!$validationResult->isValid()) {
+                $this->errors = array_merge($this->errors, $validationResult->getErrors());
+            }
         }
 
         return $resultStack;

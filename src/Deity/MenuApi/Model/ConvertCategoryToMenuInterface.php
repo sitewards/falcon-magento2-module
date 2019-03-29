@@ -5,6 +5,7 @@ namespace Deity\MenuApi\Model;
 
 use Deity\MenuApi\Api\Data\MenuInterface;
 use Magento\Catalog\Model\Category;
+use Magento\Framework\Validation\ValidationException;
 
 /**
  * Interface ConvertCategoryToMenuItem

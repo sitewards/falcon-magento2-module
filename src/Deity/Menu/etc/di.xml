@@ -3,4 +3,11 @@
     <preference for="Deity\MenuApi\Api\Data\MenuInterface" type="Deity\Menu\Model\Data\Menu" />
     <preference for="Deity\MenuApi\Api\GetMenuInterface" type="Deity\Menu\Model\GetMenu" />
     <preference for="Deity\MenuApi\Model\ConvertCategoryToMenuInterface" type="Deity\Menu\Model\ConvertCategoryToMenu" />
+    <type name="Deity\MenuApi\Model\MenuValidatorChain">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="url_path" xsi:type="object">Deity\Menu\Model\Menu\Validator\UrlPathValidator</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
