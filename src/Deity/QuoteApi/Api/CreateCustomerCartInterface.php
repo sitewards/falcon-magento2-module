@@ -15,7 +15,8 @@ interface CreateCustomerCartInterface
      * Get cart for customer
      *
      * @param int $customerId
+     * @param string $maskedQuoteId
      * @return int
      */
-    public function execute($customerId): int;
+    public function execute($customerId, string $maskedQuoteId = null): int;
 }

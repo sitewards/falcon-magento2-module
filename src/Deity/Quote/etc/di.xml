@@ -4,4 +4,5 @@
     <preference for="Deity\QuoteApi\Api\GuestCartManagementInterface" type="Deity\Quote\Model\GuestCartManagement" />
     <preference for="Deity\QuoteApi\Api\Data\OrderResponseInterface" type="Deity\Quote\Model\Data\OrderResponse" />
     <preference for="Deity\QuoteApi\Api\CreateCustomerCartInterface" type="Deity\Quote\Model\CreateCustomerCart" />
+    <preference for="Deity\QuoteApi\Model\CartMergeManagementInterface" type="Deity\Quote\Model\CartMergeManagement" />
 </config>

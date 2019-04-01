@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace Deity\Customer\Plugin\Customer\Api;
 
-use Deity\MagentoApi\Model\MergeManagement;
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class AccountManagement
@@ -17,63 +14,20 @@ use Psr\Log\LoggerInterface;
  */
 class AccountManagement
 {
-    /** @var CustomerRepositoryInterface */
+    /**
+     * @var CustomerRepositoryInterface
+     */
     private $customerRepository;
-
-    /** @var MergeManagement */
-    private $cartMergeManagement;
-
-    /** @var LoggerInterface */
-    private $logger;
 
     /**
      * AccountManagement constructor.
+     *
      * @param CustomerRepositoryInterface $customerRepository
-     * @param MergeManagement $cartMergeManagement
-     * @param LoggerInterface $logger
      */
     public function __construct(
-        CustomerRepositoryInterface $customerRepository,
-        MergeManagement $cartMergeManagement,
-        LoggerInterface $logger
+        CustomerRepositoryInterface $customerRepository
     ) {
         $this->customerRepository = $customerRepository;
-        $this->logger = $logger;
-        $this->cartMergeManagement = $cartMergeManagement;
-    }
-
-    /**
-     * Plugin aroung creaateAccountWithPasswordHash function
-     *
-     * @param AccountManagementInterface $subject
-     * @param callable $proceed
-     * @param CustomerInterface $customer
-     * @param string $hash
-     * @param string $redirectUrl
-     * @return CustomerInterface
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function aroundCreateAccountWithPasswordHash(
-        AccountManagementInterface $subject,
-        callable $proceed,
-        CustomerInterface $customer,
-        $hash,
-        $redirectUrl
-    ) {
-        $extensionAttributes = $customer->getExtensionAttributes();
-        $quoteId = $extensionAttributes ? $extensionAttributes->getGuestQuoteId() : null;
-
-        /** @var CustomerInterface $result */
-        $customer = $proceed($customer, $hash, $redirectUrl);
-        if ($quoteId) {
-            try {
-                $this->cartMergeManagement->convertGuestCart($quoteId, $customer);
-            } catch (\Exception $e) {
-                $this->logger->critical($e);
-            }
-        }
-
-        return $customer;
     }
 
     /**

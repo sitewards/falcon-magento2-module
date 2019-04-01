@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Deity\Quote\Model;
 
 use Deity\QuoteApi\Api\CreateCustomerCartInterface;
+use Deity\QuoteApi\Model\CartMergeManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\CartRepositoryInterface;
@@ -48,20 +48,28 @@ class CreateCustomerCart implements CreateCustomerCartInterface
     private $quoteAddressFactory;
 
     /**
+     * @var CartMergeManagementInterface
+     */
+    private $cartMergeManagement;
+
+    /**
      * CreateCustomerCart constructor.
      * @param StoreManagerInterface $storeManager
      * @param CartRepositoryInterface $quoteRepository
      * @param CartInterfaceFactory $quoteFactory
      * @param CustomerRepositoryInterface $customerRepository
      * @param AddressInterfaceFactory $addressInterfaceFactory
+     * @param CartMergeManagementInterface $cartMergeManagement
      */
     public function __construct(
         StoreManagerInterface $storeManager,
         CartRepositoryInterface $quoteRepository,
         CartInterfaceFactory $quoteFactory,
         CustomerRepositoryInterface $customerRepository,
-        AddressInterfaceFactory $addressInterfaceFactory
+        AddressInterfaceFactory $addressInterfaceFactory,
+        CartMergeManagementInterface $cartMergeManagement
     ) {
+        $this->cartMergeManagement = $cartMergeManagement;
         $this->quoteAddressFactory = $addressInterfaceFactory;
         $this->storeManager = $storeManager;
         $this->quoteRepository = $quoteRepository;
@@ -73,21 +81,22 @@ class CreateCustomerCart implements CreateCustomerCartInterface
      * Get cart for customer
      *
      * @param int $customerId
+     * @param string|null $maskedQuoteId
      * @return int
-     * @throws CouldNotSaveException
-     * @throws NoSuchEntityException
      * @throws LocalizedException
+     * @throws NoSuchEntityException
      */
-    public function execute($customerId): int
+    public function execute($customerId, string $maskedQuoteId = null): int
     {
         $storeId = $this->storeManager->getStore()->getStoreId();
         $quote = $this->createCustomerCart($customerId, $storeId);
 
-        try {
+        if ($maskedQuoteId !== null) {
+            $this->cartMergeManagement->mergeGuestAndCustomerQuotes($maskedQuoteId, $quote);
+        } else {
             $this->quoteRepository->save($quote);
-        } catch (\Exception $e) {
-            throw new CouldNotSaveException(__("The quote can't be created."));
         }
+
         return (int)$quote->getId();
     }
 
