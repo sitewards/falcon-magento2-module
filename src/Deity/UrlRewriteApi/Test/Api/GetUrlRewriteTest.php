@@ -15,7 +15,7 @@ class GetUrlRewriteTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/url';
+    private const RESOURCE_PATH = '/V1/falcon/urls?url=#url';
 
     /**
      * @param $existingUrl
@@ -25,7 +25,7 @@ class GetUrlRewriteTest extends WebapiAbstract
     {
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => self::RESOURCE_PATH . "?url=" . $existingUrl,
+                'resourcePath' => str_replace('#url', $existingUrl, self::RESOURCE_PATH),
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
             ]
         ];
@@ -56,5 +56,16 @@ class GetUrlRewriteTest extends WebapiAbstract
         $this->assertEquals('PRODUCT', $item['entity_type'], "Item was retrieved successfully");
         $this->assertEquals('simple', $item['entity_id'], "Item entity id was successfully converted");
         $this->assertContains('simple-product.html', $item['canonical_url'], 'Request path appears in canonical URL.');
+    }
+
+    /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/UrlRewriteApi/Test/_files/categories_with_children.php
+     */
+    public function testProductInsideCategory()
+    {
+        $item = $this->getUrlRewriteInfo('first/simple-one.html');
+        $this->assertEquals('PRODUCT', $item['entity_type'], "Item was retrieved successfully");
+        $this->assertEquals('simple-1', $item['entity_id'], "Item entity id was successfully converted");
+        $this->assertContains('simple-one.html', $item['canonical_url'], 'Request path appears in canonical URL.');
     }
 }

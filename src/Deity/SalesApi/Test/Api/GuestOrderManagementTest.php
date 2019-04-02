@@ -21,7 +21,7 @@ class GuestOrderManagementTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH_ORDER_INFO = '/V1/guest-orders/:orderId/order-info';
+    private const RESOURCE_PATH_ORDER_INFO = '/V1/falcon/guest-orders/:orderId/order-info';
 
     /**
      * @var ObjectManagerInterface

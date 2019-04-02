@@ -3,7 +3,7 @@
     <default>
         <deity>
             <general>
-                <api_version>2.0.0</api_version>
+                <api_version>4.0.0</api_version>
             </general>
         </deity>
     </default>

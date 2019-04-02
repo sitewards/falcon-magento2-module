@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Deity\CustomerApi\Test\Api;
 
+use Magento\Customer\Api\AccountManagementInterface;
+use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Model\CustomerRegistry;
 use Magento\Integration\Model\Oauth\Token as TokenModel;
@@ -16,9 +18,9 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class CustomerAddressTest extends WebapiAbstract
 {
-    const RESOURCE_PATH = '/V1/customers/me/address';
+    private const RESOURCE_PATH = '/V1/falcon/customers/me/address';
 
-    const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
+    private const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
 
     /**
      * @var CustomerRepositoryInterface

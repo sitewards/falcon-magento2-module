@@ -9,7 +9,10 @@
 namespace Deity\UrlRewrite\Model\UrlRewrite\CanonicalUrlProvider;
 
 use Deity\UrlRewriteApi\Api\CanonicalUrlProviderInterface;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\UrlInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
@@ -20,18 +23,26 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 class ProductUrlProvider implements CanonicalUrlProviderInterface
 {
     /**
-     * @var \Magento\Catalog\Api\ProductRepositoryInterface
+     * @var ProductRepositoryInterface
      */
     private $productRepository;
 
     /**
+     * @var UrlInterface
+     */
+    private $urlBuilder;
+
+    /**
      * ProductUrlProvider constructor.
      *
-     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
+     * @param ProductRepositoryInterface $productRepository
+     * @param UrlInterface $urlBuilder
      */
     public function __construct(
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
+        UrlInterface $urlBuilder
     ) {
+        $this->urlBuilder = $urlBuilder;
         $this->productRepository = $productRepository;
     }
 
@@ -41,11 +52,14 @@ class ProductUrlProvider implements CanonicalUrlProviderInterface
     public function getCanonicalUrl(UrlRewrite $urlModel)
     {
         try {
+            /** @var Product $product */
             $product = $this->productRepository->getById($urlModel->getEntityId());
         } catch (NoSuchEntityException $e) {
             return '';
         }
 
-        return $product->getUrlModel()->getUrl($product, ['_ignore_category' => true]);
+        $productUrl = $product->getUrlModel()->getUrl($product, ['_ignore_category' => true]);
+        $storeUrl = $this->urlBuilder->getBaseUrl();
+        return str_replace($storeUrl, '', $productUrl);
     }
 }

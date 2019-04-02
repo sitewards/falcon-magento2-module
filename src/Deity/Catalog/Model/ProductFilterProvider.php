@@ -38,7 +38,7 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
     private $filterOptionFactory;
 
     /**
-     * @var string[]
+     * @var string[][]
      */
     private $filterValues = [];
 
@@ -90,7 +90,6 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
             }
             /** @var FilterInterface $filterObject */
             $filterObject = $this->filterFactory->create($filterInitData);
-            $this->processSelectedOptionsForFilter($magentoFilter, $filterObject);
             $magentoOptions = $magentoFilter->getItems();
             /** @var Item $magentoOption */
             foreach ($magentoOptions as $magentoOption) {
@@ -99,7 +98,12 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
                     [
                         FilterOptionInterface::LABEL => (string)$magentoOption->getData('label'),
                         FilterOptionInterface::VALUE => $magentoOption->getValueString(),
-                        FilterOptionInterface::COUNT => (int)$magentoOption->getData('count')
+                        FilterOptionInterface::COUNT => (int)$magentoOption->getData('count'),
+                        FilterOptionInterface::IS_SELECTED =>
+                            $this->getIsSelectedFlagForFilterOption(
+                                $magentoFilter,
+                                (string)$magentoOption->getValueString()
+                            )
                     ]
                 );
                 $filterObject->addOption($filterOption);
@@ -111,41 +115,23 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
     }
 
     /**
-     * Process selected items for selected filter
+     * Check if filter option is selected
      *
      * @param AbstractFilter $magentoFilter
-     * @param FilterInterface $filterObject
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @param string $getValueString
+     * @return bool
      */
-    private function processSelectedOptionsForFilter(AbstractFilter $magentoFilter, FilterInterface $filterObject)
+    private function getIsSelectedFlagForFilterOption(AbstractFilter $magentoFilter, string $getValueString): bool
     {
-        if ($this->isFilterSelected($magentoFilter)) {
-            foreach ($this->filterValues[$filterObject->getCode()] as $filterValue) {
-                if ($magentoFilter->getRequestVar() == 'cat') {
-                    $layer = $magentoFilter->getLayer();
-                    $categoryObject = $layer->getCurrentCategory()->getChildrenCategories()->getItemById($filterValue);
-                    if ($categoryObject === null) {
-                        throw new InitException(__('Given category filter is not available'));
-                    }
-                    $filterLabel = $categoryObject->getName();
-                } else {
-                    $filterLabel = $magentoFilter
-                        ->getAttributeModel()
-                        ->getSource()
-                        ->getOptionText($filterValue);
-                }
-                /** @var FilterOptionInterface $filterOption */
-                $filterOption =$this->filterOptionFactory->create(
-                    [
-                        FilterOptionInterface::LABEL => (string)$filterLabel,
-                        FilterOptionInterface::VALUE => (string)$filterValue,
-                        FilterOptionInterface::COUNT => 0,
-                        FilterOptionInterface::IS_SELECTED => true
-                    ]
-                );
-                $filterObject->addOption($filterOption);
-            }
+        if (!$this->isFilterSelected($magentoFilter)) {
+            return false;
         }
+
+        if (in_array($getValueString, $this->filterValues[$magentoFilter->getRequestVar()])) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

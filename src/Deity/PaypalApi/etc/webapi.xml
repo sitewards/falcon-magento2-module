@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/guest-carts/:cartId/paypal-express-fetch-token" method="GET">
+    <route url="/V1/falcon/guest-carts/:cartId/paypal-express-fetch-token" method="GET">
         <service class="Deity\PaypalApi\Api\Express\GuestTokenProviderInterface" method="getToken"/>
         <resources>
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="/V1/guest-carts/:cartId/paypal-express-return" method="GET">
+    <route url="/V1/falcon/guest-carts/:cartId/paypal-express-return" method="GET">
         <service class="Deity\PaypalApi\Api\Express\GuestReturnInterface" method="processReturn"/>
         <resources>
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="/V1/guest-carts/:cartId/paypal-express-cancel" method="GET">
+    <route url="/V1/falcon/guest-carts/:cartId/paypal-express-cancel" method="GET">
         <service class="Deity\PaypalApi\Api\Express\GuestCancelInterface" method="processCancel"/>
         <resources>
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="/V1/carts/mine/paypal-express-fetch-token" method="GET">
+    <route url="/V1/falcon/carts/mine/paypal-express-fetch-token" method="GET">
         <service class="Deity\PaypalApi\Api\Express\TokenProviderInterface" method="getToken"/>
         <resources>
             <resource ref="self" />
@@ -27,7 +27,7 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
-    <route url="/V1/carts/mine/paypal-express-return" method="GET">
+    <route url="/V1/falcon/carts/mine/paypal-express-return" method="GET">
         <service class="Deity\PaypalApi\Api\Express\CustomerReturnInterface" method="processReturn"/>
         <resources>
             <resource ref="self" />
@@ -36,7 +36,7 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
-    <route url="/V1/carts/mine/paypal-express-cancel" method="GET">
+    <route url="/V1/falcon/carts/mine/paypal-express-cancel" method="GET">
         <service class="Deity\PaypalApi\Api\Express\CustomerCancelInterface" method="processCancel"/>
         <resources>
             <resource ref="self" />

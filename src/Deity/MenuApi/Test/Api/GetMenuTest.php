@@ -14,7 +14,7 @@ class GetMenuTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/menu';
+    private const RESOURCE_PATH = '/V1/falcon/menus';
 
     /**
      * @return array
@@ -78,5 +78,20 @@ class GetMenuTest extends WebapiAbstract
         $categoryWithoutChildren = array_pop($menuData);
 
         $this->assertEquals(0, count($categoryWithoutChildren['children']), "Category should have 0 child categories");
+    }
+
+    /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/MenuApi/Test/_files/category_corrupt_data.php
+     * @expectedException \Exception
+     */
+    public function testCategoryCorruptData()
+    {
+        $menuData = $this->getMenu();
+    }
+
+    public function testNoCategoryDataAvailable()
+    {
+        $menu = $this->getMenu();
+        $this->assertEmpty($menu, 'No data should be returned');
     }
 }

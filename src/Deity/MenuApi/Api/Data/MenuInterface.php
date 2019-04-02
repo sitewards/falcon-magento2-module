@@ -43,7 +43,7 @@ interface MenuInterface extends ExtensibleDataInterface
     /**
      * Strict typing ommited to comply to AbstractModel
      *
-     * @param string $id
+     * @param int $id
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
     public function setId($id): MenuInterface;

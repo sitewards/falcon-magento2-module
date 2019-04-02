@@ -19,26 +19,10 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 class BaseUrlProvider implements CanonicalUrlProviderInterface
 {
     /**
-     * @var \Magento\Framework\UrlInterface
-     */
-    private $urlBuilder;
-
-    /**
-     * BaseUrlProvider constructor.
-     *
-     * @param \Magento\Framework\UrlInterface $urlBuilder
-     */
-    public function __construct(
-        \Magento\Framework\UrlInterface $urlBuilder
-    ) {
-        $this->urlBuilder = $urlBuilder;
-    }
-
-    /**
      * @inheritdoc
      */
     public function getCanonicalUrl(UrlRewrite $urlModel)
     {
-        return $this->urlBuilder->getDirectUrl($urlModel->getRequestPath());
+        return $urlModel->getRequestPath();
     }
 }
