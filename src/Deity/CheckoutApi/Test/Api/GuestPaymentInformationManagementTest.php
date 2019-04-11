@@ -10,7 +10,8 @@ use Magento\Framework\App\Config;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartSearchResultsInterface;
-use Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface;
+use Magento\Quote\Model\QuoteIdMask;
+use Magento\Quote\Model\QuoteIdMaskFactory;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
@@ -115,10 +116,18 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
         $quote = array_pop($quotes);
         $testQuoteId = (int)$quote->getId();
 
-        /** @var QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedIdConverter */
-        $quoteIdToMaskedIdConverter = $this->objectManager->create(
-            QuoteIdToMaskedQuoteIdInterface::class
+        $quoteIdMaskFactory = $this->objectManager->create(
+            QuoteIdMaskFactory::class
         );
-        return $quoteIdToMaskedIdConverter->execute($testQuoteId);
+
+        $quoteIdMaskResource = $this->objectManager->create(
+            \Magento\Quote\Model\ResourceModel\Quote\QuoteIdMask::class
+        );
+
+        /** @var QuoteIdMask $quoteIdMask */
+        $quoteIdMask = $quoteIdMaskFactory->create();
+
+        $quoteIdMaskResource->load($quoteIdMask, $testQuoteId, 'quote_id');
+        return $quoteIdMask->getMaskedId();
     }
 }
