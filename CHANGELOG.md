@@ -2,6 +2,8 @@
 
 Versions marked with a number and date (e.g. v0.1.0 (2018-10-05)) are already released and available via packagist. Versions without a date are not released yet.
 
+## v4.0.1 (2019-04-11)
+ - Fixed back compatibility issue with Magento 2.2
 ## v4.0.0 (2019-04-02)
  - Introduced new API param to merge guest shopping cart into customer one, after login [#23](https://github.com/deity-io/falcon-magento2-development/issues/23)
  - fixed the issue with zero grandtotal for logged in customer [#91](https://github.com/deity-io/falcon-magento2-development/issues/91)
