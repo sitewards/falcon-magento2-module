@@ -2,6 +2,8 @@
 
 Versions marked with a number and date (e.g. v0.1.0 (2018-10-05)) are already released and available via packagist. Versions without a date are not released yet.
 
+## v4.0.2 (2019-04-12)
+ - Fixed the issue with price filters [#95](https://github.com/deity-io/falcon-magento2-development/issues/95)
 ## v4.0.1 (2019-04-11)
  - Fixed back compatibility issue with Magento 2.2
 ## v4.0.0 (2019-04-02)
