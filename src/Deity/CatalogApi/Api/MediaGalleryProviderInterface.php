@@ -16,7 +16,7 @@ interface MediaGalleryProviderInterface
      * Get media gallery sizes
      *
      * @param ProductInterface $product
-     * @return \Deity\Catalog\Model\Data\GalleryMediaEntrySize[]
+     * @return \Deity\CatalogApi\Api\Data\GalleryMediaEntrySizeInterface[]
      */
     public function getMediaGallerySizes(ProductInterface $product): array;
 }

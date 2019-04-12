@@ -227,6 +227,140 @@ class CategoryProductListTest extends WebapiAbstract
     }
 
     /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_three_products.php
+     */
+    public function testPriceFilter()
+    {
+        $searchCriteria = [
+            'searchCriteria' => [
+                'filter_groups' => [
+                    [
+                        'filters' => [
+                            [
+                                'field' => 'price',
+                                'value' => '-9',
+                                'condition_type' => 'eq',
+                            ],
+                        ],
+                    ],
+                ],
+                'current_page' => 1,
+                'page_size' => 2,
+            ],
+        ];
+
+        $categoryId = 3;
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(0, $response['total_count'], 'No products expected');
+
+        $searchCriteria['searchCriteria']['filter_groups'][0]['filters'][0]['value'] = '-10';
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(1, $response['total_count'], 'One product expected');
+
+        $searchCriteria['searchCriteria']['filter_groups'][0]['filters'][0]['value'] = '-30';
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(2, $response['total_count'], 'Two products expected');
+
+        $searchCriteria['searchCriteria']['filter_groups'][0]['filters'][0]['value'] = '20-30';
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(1, $response['total_count'], 'One product expected');
+
+        $searchCriteria['searchCriteria']['filter_groups'][0]['filters'][0]['value'] = '30-';
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(2, $response['total_count'], 'Two products expected with price over 30');
+
+        $searchCriteria['searchCriteria']['filter_groups'][0]['filters'][0]['value'] = '60-';
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(1, $response['total_count'], 'One product expected with price over 60');
+
+        $searchCriteria['searchCriteria']['filter_groups'][0]['filters'][0]['value'] = '70-';
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(0, $response['total_count'], 'No products expected');
+
+        $searchCriteria['searchCriteria']['filter_groups'][0]['filters'][0]['value'] = '10-60';
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(3, $response['total_count'], 'Three product expected');
+    }
+
+    /**
      * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_filters.php
      */
     public function testSelectedFilterFlagIsOn()
