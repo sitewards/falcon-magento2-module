@@ -63,10 +63,6 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
      */
     public function getFilterList(Layer $layer, ?SearchCriteriaInterface $searchCriteria): array
     {
-        if (!$layer->getCurrentCategory()->getIsAnchor()) {
-            //if category is not marked is_anchor, do not return filter data
-            return [];
-        }
 
         $this->presetFilterValues($searchCriteria);
         

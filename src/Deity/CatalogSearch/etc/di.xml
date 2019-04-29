@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Deity\CatalogSearchApi\Api\SearchInterface" type="Deity\CatalogSearch\Model\CatalogSearchProductList" />
+    <preference for="Deity\CatalogSearchApi\Api\SearchAutocompleteInterface" type="Deity\CatalogSearch\Model\CatalogSearchAutocomplete" />
+    <preference for="Deity\CatalogSearchApi\Model\QueryCollectionServiceInterface" type="Deity\CatalogSearch\Model\QueryCollection\Service"/>
+    <preference for="Deity\CatalogSearchApi\Api\Data\AutocompleteItemInterface" type="Deity\CatalogSearch\Model\Data\AutocompleteItem"/>
+
+    <preference for="Magento\Search\Model\AutocompleteInterface" type="Magento\Search\Model\Autocomplete" />
+
+    <virtualType name="searchFilterList" type="Magento\Catalog\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filterableAttributes" xsi:type="object">Magento\Catalog\Model\Layer\Search\FilterableAttributeList</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Deity\CatalogSearch\VirtualType\Model\ResourceModel\Fulltext\SearchCollection" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection">
+        <arguments>
+            <argument name="searchRequestName" xsi:type="string">quick_search_container</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Deity\CatalogSearch\VirtualType\Model\ResourceModel\Fulltext\SearchCollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Deity\CatalogSearch\VirtualType\Model\ResourceModel\Fulltext\SearchCollection</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Deity\CatalogSearch\VirtualType\Model\Api\SearchCriteria\ProductCollectionProcessor" type="Magento\Eav\Model\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Deity\Catalog\Model\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Deity\CatalogSearchApi\VirtualType\Model\ProductFilterProvider" type="Deity\Catalog\Model\ProductFilterProvider">
+        <arguments>
+            <argument name="filterList" xsi:type="object">searchFilterList</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Deity\CatalogSearch\Model\CatalogSearchProductList">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">Deity\CatalogSearch\VirtualType\Model\ResourceModel\Fulltext\SearchCollectionFactory</argument>
+            <argument name="collectionProcessor" xsi:type="object">Deity\CatalogSearch\VirtualType\Model\Api\SearchCriteria\ProductCollectionProcessor</argument>
+            <argument name="productFilterProvider" xsi:type="object">Deity\CatalogSearchApi\VirtualType\Model\ProductFilterProvider</argument>
+        </arguments>
+    </type>
+
+    <type name="Deity\CatalogSearch\Model\CatalogSearchAutocomplete">
+        <arguments>
+            <argument name="dataProviders" xsi:type="array">
+                <item name="suggestion" xsi:type="object">Deity\CatalogSearch\Model\Autocomplete\SuggestionProvider</item>
+                <item name="product" xsi:type="object">Deity\CatalogSearch\Model\Autocomplete\ProductProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

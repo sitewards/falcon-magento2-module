@@ -8,12 +8,10 @@ use Deity\CatalogApi\Api\Data\ProductInterfaceFactory;
 use Deity\CatalogApi\Api\ProductConvertInterface;
 use Deity\CatalogApi\Api\ProductImageProviderInterface;
 use Deity\CatalogApi\Api\ProductPriceProviderInterface;
+use Deity\CatalogApi\Model\ProductUrlPathProviderInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Profiler;
-use Magento\UrlRewrite\Model\UrlFinderInterface;
-use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
  * Class ProductConvert
@@ -34,9 +32,9 @@ class ProductConvert implements ProductConvertInterface
     private $currentProductObject;
 
     /**
-     * @var \Magento\UrlRewrite\Model\UrlFinderInterface
+     * @var ProductUrlPathProviderInterface
      */
-    private $urlFinder;
+    private $urlPathProvider;
 
     /**
      * @var ProductImageProviderInterface
@@ -51,19 +49,19 @@ class ProductConvert implements ProductConvertInterface
     /**
      * ProductConvert constructor.
      * @param ProductInterfaceFactory $productFactory
-     * @param UrlFinderInterface $urlFinder
+     * @param ProductUrlPathProviderInterface $urlPathProvider
      * @param ProductPriceProviderInterface $priceProvider
      * @param ProductImageProviderInterface $imageProvider
      */
     public function __construct(
         ProductInterfaceFactory $productFactory,
-        UrlFinderInterface $urlFinder,
+        ProductUrlPathProviderInterface $urlPathProvider,
         ProductPriceProviderInterface $priceProvider,
         ProductImageProviderInterface $imageProvider
     ) {
+        $this->urlPathProvider = $urlPathProvider;
         $this->priceProvider = $priceProvider;
         $this->imageProvider = $imageProvider;
-        $this->urlFinder = $urlFinder;
         $this->productFactory = $productFactory;
     }
 
@@ -79,7 +77,9 @@ class ProductConvert implements ProductConvertInterface
         $deityProduct = $this->productFactory->create();
         $deityProduct->setName($product->getName());
         $deityProduct->setSku($product->getSku());
-        $deityProduct->setUrlPath($this->getProductUrlPath($product));
+        $deityProduct->setUrlPath(
+            $this->urlPathProvider->getProductUrlPath($product, (string)$product->getCategoryId())
+        );
         $deityProduct->setIsSalable((int)$product->getIsSalable());
 
         $deityProduct->setImage(
@@ -94,41 +94,6 @@ class ProductConvert implements ProductConvertInterface
 
         Profiler::stop('__PRODUCT_LISTING_CONVERT__');
         return $deityProduct;
-    }
-
-    /**
-     * Get product url path
-     *
-     * @param Product $product
-     * @return string
-     * @throws LocalizedException
-     */
-    private function getProductUrlPath(Product $product): string
-    {
-        $filterData = [
-            UrlRewrite::ENTITY_ID => $product->getId(),
-            UrlRewrite::ENTITY_TYPE => \Magento\CatalogUrlRewrite\Model\ProductUrlRewriteGenerator::ENTITY_TYPE,
-            UrlRewrite::STORE_ID => $product->getStoreId(),
-        ];
-
-        $filterData[UrlRewrite::METADATA]['category_id'] = $product->getCategoryId();
-
-        $rewrite = $this->urlFinder->findOneByData($filterData);
-
-        if ($rewrite) {
-            return  $rewrite->getRequestPath();
-        }
-
-        // try to get direct url to magento
-        unset($filterData[UrlRewrite::METADATA]);
-
-        $rewrite = $this->urlFinder->findOneByData($filterData);
-
-        if ($rewrite) {
-            return  $rewrite->getRequestPath();
-        }
-
-        throw new LocalizedException(__('Unable to get seo friendly url for product'));
     }
 
     /**

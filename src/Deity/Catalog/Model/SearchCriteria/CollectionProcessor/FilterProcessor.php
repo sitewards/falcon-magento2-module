@@ -79,8 +79,7 @@ class FilterProcessor implements CollectionProcessorInterface
                     $fields[] = ['attribute' => $field, 'from' => $from];
                     $fields[] = ['attribute' => $field,  'to' => $to];
                 } else {
-                    $condition = $filter->getConditionType() ? $filter->getConditionType() : 'eq';
-                    $fields[] = ['attribute' => $field, $condition => $filter->getValue()];
+                    $fields[] = ['attribute' => $field, $filter->getValue()];
                 }
             }
         }
