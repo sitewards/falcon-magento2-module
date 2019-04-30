@@ -3,7 +3,4 @@
     <type name="Deity\CatalogApi\Api\ProductConvertInterface">
         <plugin name="url_key_field" type="Deity\Catalog\Plugin\ProductConvertPluginExample" sortOrder="10" />
     </type>
-    <type name="Magento\Catalog\Model\Product">
-        <plugin name="deity_product_plugin" type="Deity\Catalog\Plugin\Model\Product" sortOrder="10" />
-    </type>
 </config>

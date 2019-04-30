@@ -6,4 +6,10 @@
             <resource ref="Magento_Catalog::categories"/>
         </resources>
     </route>
+    <route url="/V1/falcon/products/:sku" method="GET">
+        <service class="Deity\CatalogApi\Api\ProductRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Magento_Catalog::categories"/>
+        </resources>
+    </route>
 </routes>

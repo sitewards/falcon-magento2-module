@@ -16,6 +16,11 @@
     <preference for="Deity\CatalogApi\Api\ProductFilterProviderInterface" type="Deity\Catalog\Model\ProductFilterProvider" />
     <preference for="Deity\CatalogApi\Model\ProductUrlPathProviderInterface" type="Deity\Catalog\Model\Product\UrlPathProvider" />
 
+    <preference for="Deity\CatalogApi\Api\ProductRepositoryInterface" type="Deity\Catalog\Model\ProductRepository" />
+    <preference for="Deity\CatalogApi\Api\Data\ProductStockInterface" type="Deity\Catalog\Model\Data\ProductStock" />
+    <preference for="Deity\CatalogApi\Model\ProductStockProviderInterface" type="Deity\Catalog\Model\Product\StockProvider" />
+    <preference for="Deity\CatalogApi\Api\Data\ProductDetailInterface" type="Deity\Catalog\Model\Data\ProductDetail" />
+
     <type name="Deity\Catalog\Model\Product\UrlPathProvider">
         <arguments>
             <argument name="urlFinder" xsi:type="object">Magento\CatalogUrlRewrite\Model\Storage\DbStorage</argument>
